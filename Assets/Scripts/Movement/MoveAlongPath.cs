@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(TransformVariance))] //because otherwise no one sets myScale
 public class MoveAlongPath : MonoBehaviour
 {
     public float speed = 10f;
@@ -14,18 +15,32 @@ public class MoveAlongPath : MonoBehaviour
     Transform target;
     int waypointIndex = 0;
 
+    public bool moveTowardHut; //if false, moveTowardVillage
+
+    public Vector3 myScale; //set by TransformVariance
+
     private void Start()
     {
-        target = Path.points[0];
         anim = GetComponent<Animator>();
-
-
-        StartCoroutine("Move"); //must use string
+        StartMoveCoroutineToHut();
     }
 
-    IEnumerator Move()
-    {
 
+    public void StartMoveCoroutineToVillage()
+    {
+        moveTowardHut = false;
+        target = PathToVillage.pointsTowardVillage[0];
+        StartCoroutine("Move");
+    }
+    public void StartMoveCoroutineToHut()
+    {
+        moveTowardHut = true;
+        target = PathToHut.pointsTowardHut[0];
+        StartCoroutine("Move");
+    }
+
+    public IEnumerator Move()
+    {
         while (true)
         {
             Vector3 dir = target.position - transform.position; 
@@ -40,6 +55,7 @@ public class MoveAlongPath : MonoBehaviour
 
                 else
                 {
+                    FlipSprite();
                     anim.SetFloat("moveSpeed", speed * animSpeed);
                     transform.Translate(dir.normalized * speed * Time.deltaTime, Space.World);
                 }
@@ -47,6 +63,7 @@ public class MoveAlongPath : MonoBehaviour
 
             else
             {
+                FlipSprite();
                 anim.SetFloat("moveSpeed", speed * animSpeed);
                 transform.Translate(dir.normalized * speed * Time.deltaTime, Space.World);
             }
@@ -60,17 +77,33 @@ public class MoveAlongPath : MonoBehaviour
 
     void GetNextWaypoint()
     {
-        if (waypointIndex >= Path.points.Length - 1)
+        Transform[] eitherPath;
+
+        if (moveTowardHut)
+            eitherPath = PathToHut.pointsTowardHut;
+        else
+            eitherPath = PathToVillage.pointsTowardVillage;
+
+        if (waypointIndex >= eitherPath.Length - 1)
         {
             anim.SetFloat("moveSpeed", 0);
             StopCoroutine("Move"); //must use string
             return;
         }
-
         else
         {
             waypointIndex++;
-            target = Path.points[waypointIndex];
+            target = eitherPath[waypointIndex];
+            //target = PathToHut.pointsTowardHut[waypointIndex];
         }
+    }
+
+    public void FlipSprite()
+    {
+        if (transform.position.x < target.position.x)
+            transform.localScale = new Vector3(myScale.x * 1, myScale.y, myScale.z);
+
+        if (transform.position.x > target.position.x)
+            transform.localScale = new Vector3(myScale.x * -1, myScale.y, myScale.z);
     }
 }

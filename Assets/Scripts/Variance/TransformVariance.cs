@@ -131,7 +131,6 @@ public class TransformVariance : MonoBehaviour
 
     void TellScaleToStatsAndWander()
     {
-        /*
         // if this script is on a GO, it's the only thing that alters its scale. Therefore it is the one that
         /// reports this altered scale to the 3 scripts that need it.
         
@@ -139,14 +138,9 @@ public class TransformVariance : MonoBehaviour
         if (stats)
             stats.myScale = transform.localScale;
 
-        CritterWanderAI critterWander = GetComponent<CritterWanderAI>();
-        if (critterWander)
-            critterWander.myScale = transform.localScale;
-
-        FlyingWanderAI flyingWander = GetComponent<FlyingWanderAI>();
-        if (flyingWander)
-            flyingWander.myScale = transform.localScale;
-            */
+        MoveAlongPath moveAlongPath = GetComponent<MoveAlongPath>();
+        if (moveAlongPath)
+            moveAlongPath.myScale = transform.localScale;
     }
 
 }

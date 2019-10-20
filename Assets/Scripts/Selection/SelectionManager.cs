@@ -139,7 +139,6 @@ public class SelectionManager : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))  //if we left clicked
         {
-            print("LC");
             if (EventSystem.current.IsPointerOverGameObject()) //check to make sure we're not clicking a UI element (so we click that instead of performing selection)
                 return; //if it was a UI element, leave selection method (so that UI functions can execute instead)
 
@@ -191,8 +190,6 @@ public class SelectionManager : MonoBehaviour
 
         if (hits != null && hits.Length > 0) 
         {
-            print("clicked something with a collider");
-
             foreach (RaycastHit2D hit1 in hits)
                 if (hit1.collider != null)  //if anything was detected
                     cols.Add(hit1.collider); //add it to the list of hit colliders
@@ -210,8 +207,6 @@ public class SelectionManager : MonoBehaviour
 
             for (int i = 0; i < cols.Count; i++) //loop through the colliders
             {
-                print("a col?");
-
                 SortingGroup sG = cols[i].gameObject.GetComponent<SortingGroup>(); //check is there's a SG on the collider
 
                 if (sG != null) //if there is,
@@ -229,26 +224,18 @@ public class SelectionManager : MonoBehaviour
                 {
                     if (sGs[i] != null)
                     {
-                        print("sorting group here?");
-
                         string sGiLayer = sGs[i].sortingLayerName; //see dictionary at bottom of class. We scoop out the layer name from the sG.
 
                         if (SortingLayers[sGiLayer] > maxID) //with dictionary magic, plug that layer name in to get the int value we attached to it in the dictionary. if current index is higher than max
                         {
-                            print("a");
-
                             maxID = SortingLayers[sGiLayer]; //set our definition of what max is to sl's dictionary value. 
                             highestSG = sGs[i]; //also set this sortingGroup to the highestSG status.
                         }
 
                         else if (SortingLayers[sGiLayer] == maxID) //if current index is the same as max, they're on the same sorting layer.
                         {
-                            print("b");
-
                             if (sGs[i].sortingOrder > highestSG.sortingOrder) //so now we should compare the sorting ORDER instead. 
                             {
-                                print("b2");
-
                                 maxID = SortingLayers[sGiLayer]; //set our definition of what max is to its value. 
                                 highestSG = sGs[i]; //also set this sortingGroup to the highestSG status.
                             }
@@ -265,8 +252,6 @@ public class SelectionManager : MonoBehaviour
 
     public void TryToSelectIt(GameObject _clickedGO)
     {
-        print("TRY TO SELECT IT ================================");
-
         previousSelection = currentSelection;
 
         currentSelection = clickedGO.GetComponent<Selectable>(); //get the script "selection" that belongs to clickedGO,

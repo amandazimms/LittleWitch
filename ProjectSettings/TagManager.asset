@@ -6,6 +6,7 @@ TagManager:
   tags:
   - GameManager
   - SelectionMenu
+  - Cursor
   layers:
   - Default
   - TransparentFX
@@ -49,8 +50,14 @@ TagManager:
   - name: Main
     uniqueID: 4080692507
     locked: 0
-  - name: InFrontOfCharacters
+  - name: PotionLiquid
     uniqueID: 551310059
+    locked: 0
+  - name: PotionTextures
+    uniqueID: 3986073005
+    locked: 0
+  - name: PotionDraining
+    uniqueID: 2923312137
     locked: 0
   - name: UI
     uniqueID: 2956262353

@@ -21,6 +21,7 @@ public class Stats : MonoBehaviour
     [HideInInspector] public PlayerStats playerStats;
     [HideInInspector] public PlayerMovement playerMovement;
 
+    [HideInInspector] public MoveAlongPath moveAlong;
     [HideInInspector] public Animator anim;
 
     public Vector3 routeToOffset;
@@ -31,10 +32,9 @@ public class Stats : MonoBehaviour
     public bool isFrozenFromInteractingAndMoving { get; private set; }
     public bool isFrozenFromMoving { get; private set; }
     public bool playerStartedNewInteract = false; //todo [hide or todelete?
-    [HideInInspector] public bool isInBurrow;
 
     public Vector3 myScale; //[HideInInspector]  //set by TransformVariance, FoxStats, or PlayerStats, whichever exists. 
-    public string displayedName = "Default"; //Name of kind (mouse, grasshopper). This populates Selectable's Name field and is used by NameDisplay.
+    public string displayedName = "Default"; //Name. This populates Selectable's Name field and is used by NameDisplay.
 
     public void StatsAwakeStuff()
     {
@@ -53,15 +53,20 @@ public class Stats : MonoBehaviour
         playerStats = player.GetComponent<PlayerStats>();
         playerMovement = player.GetComponent<PlayerMovement>();
 
-        if (playerMovement)
-            print("pm exists");
-        else
-            print("no pm exists");
         playerMovement.OnNewDestinationWorldPoint.AddListener(OnPlayerMovementNewDestinationWorldPoint);
         playerMovement.OnReachedDestinationWorldPoint.AddListener(OnPlayerMovementReachedDestinationWorldPoint);
 
         playerMovement.OnNewDestinationObject.AddListener(OnPlayerMovementNewDestinationObject);
         playerMovement.OnReachedDestinationObject.AddListener(OnPlayerMovementReachedDestinationObject);
+
+        myScale = transform.localScale;
+
+        moveAlong = GetComponent<MoveAlongPath>();
+        if (moveAlong)
+            moveAlong.myScale = myScale;
+        PlayerMovement myOwnPlayerMovement = GetComponent<PlayerMovement>();
+        if (myOwnPlayerMovement)
+            myOwnPlayerMovement.myScale = myScale;
     }
 
     public void OnPlayerMovementNewDestinationWorldPoint() //if we clicked ground, player is now walking somewhere non-berry, so 

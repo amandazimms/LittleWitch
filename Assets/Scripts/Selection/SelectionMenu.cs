@@ -34,6 +34,7 @@ public class SelectionMenu : MonoBehaviour
     public UnityEvent OnInteractClicked;
 
     public float zoomYoffset;
+    public float zoomMultiplierOffset;
 
 
     void Awake()
@@ -59,7 +60,7 @@ public class SelectionMenu : MonoBehaviour
 
     void SizeToZoom()
     {
-        transform.localScale = new Vector3(mainCam.orthographicSize * baseScale.x, mainCam.orthographicSize * baseScale.y, mainCam.orthographicSize * baseScale.z);
+        transform.localScale = new Vector3((mainCam.orthographicSize + zoomMultiplierOffset) * baseScale.x, (mainCam.orthographicSize + zoomMultiplierOffset) * baseScale.y, (mainCam.orthographicSize + zoomMultiplierOffset) * baseScale.z);
     }
 
     void MoveSelectMenuToSelection()

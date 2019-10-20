@@ -17,7 +17,7 @@ public class Selectable : MonoBehaviour
 
     public bool isColorChanging = true;
     public SpriteRenderer[] mySprites; 
-    [HideInInspector] public List<Color> myStartColors;
+    public List<Color> myStartColors;
 
 
     public bool isSelected = false; //just for debugging since nothing relies on this?
@@ -41,23 +41,25 @@ public class Selectable : MonoBehaviour
         selectionManager = gameManager.GetComponent<SelectionManager>();
         selectionManager.population.Add(this);
 
-        CalculateSprites();
         StartCoroutine(LateStart());
     }
 
     public void CalculateSprites()
     {
         mySprites = null;
-        mySprites = GetComponentsInChildren<SpriteRenderer>();
+        mySprites = GetComponentsInChildren<SpriteRenderer>(false);
     }
 
     IEnumerator LateStart() //If we just put this in Start, colorSeasons runs after this and we don't get the correct color. With this little wait, the problem is fixed.
     {
         yield return new WaitForEndOfFrame();
+        yield return new WaitForSeconds(1f);
+
+        CalculateSprites();
 
         for (int i = 0; i < mySprites.Length; i++)
         {
-            if (mySprites[i] != null && mySprites[i].enabled == true)
+            if (mySprites[i] != null) // && mySprites[i].enabled == true)
             {
                 SpriteRenderer spriteRend = mySprites[i];
                 myStartColors.Add(spriteRend.color);

@@ -57,7 +57,6 @@ public class PlayerMovement : MonoBehaviour
         GameObject targetGO = Instantiate(moveTargetPrefab);
         target = targetGO.transform;
 
-        myScale = transform.localScale;
     }
 
     private void Start()
