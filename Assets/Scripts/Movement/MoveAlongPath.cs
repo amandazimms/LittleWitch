@@ -88,6 +88,8 @@ public class MoveAlongPath : MonoBehaviour
         {
             anim.SetFloat("moveSpeed", 0);
             StopCoroutine("Move"); //must use string
+            if (!moveTowardHut)
+                Destroy(gameObject);
             return;
         }
         else

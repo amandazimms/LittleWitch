@@ -136,7 +136,7 @@ Canvas:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8953387708844316481}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 2
   m_Camera: {fileID: 0}
@@ -147,7 +147,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 1799533577
+  m_SortingLayerID: -1338704943
   m_SortingOrder: 100
   m_TargetDisplay: 0
 --- !u!114 &8953387708844316606
@@ -278,6 +278,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   zoomYoffset: 0
+  zoomMultiplierOffset: 0
 --- !u!95 &8154054514003368652
 Animator:
   serializedVersion: 3
@@ -935,8 +936,7 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 4551407238660163087, guid: 2726ad9c6b885468ea2c019e842486bd, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2726ad9c6b885468ea2c019e842486bd, type: 3}
 --- !u!114 &7521289857171811385 stripped
 MonoBehaviour:
