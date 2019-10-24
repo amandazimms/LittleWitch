@@ -13,6 +13,8 @@ public class Stats : MonoBehaviour
     [HideInInspector] public SelectionManager selectionManager;
     [HideInInspector] public SelectionMenu selectionMenu;
 
+    [HideInInspector] public ReputationAvatar reputationMeter;
+
     public bool waitForRoute;
     public bool playerEnrouteToMe; //todo [hide
     public int mostRecentInteractNumber; // todelete?
@@ -42,6 +44,8 @@ public class Stats : MonoBehaviour
         GameObject selectionMenuGO = GameObject.FindWithTag("SelectionMenu");
         selectionMenu = selectionMenuGO.GetComponent<SelectionMenu>();
         selectionManager = gameManager.GetComponent<SelectionManager>();
+
+        reputationMeter = GameObject.FindWithTag("ReputationMeter").GetComponent<ReputationAvatar>();
 
         selectable = GetComponent<Selectable>();
         selectable.menuOffset = selectionMenuOffset;
@@ -95,6 +99,11 @@ public class Stats : MonoBehaviour
         if (playerEnrouteToMe) //and that object is me
             playerReachedMe = true; //player reached me
         //it seems like we should also do playerEnrouteToMe = false here, but careful that might fuck up the entire Interrupt situation over at SelectionManager.InteractClicked();
+    }
+
+    public void ChangeReputation(float amount)
+    {
+        reputationMeter.ChangeReputation(amount);
     }
 
     public IEnumerator WaitWhilePlayerEnrouteToMe(bool isMovingTarget, bool bothFaceEachother)
@@ -164,7 +173,7 @@ public class Stats : MonoBehaviour
     public IEnumerator FreezeFromMoving(bool includeInteract, int _secondsToWait, string originatingMethod)
     {
         /// normally, sniff/gather/any interaction triggers the player to freeze, then after anims have run,
-        /// unfreeze witht he UnfreezeNaturally method (here). If something goes wrong with pathing,
+        /// unfreeze with the UnfreezeNaturally method (here). If something goes wrong with pathing,
         /// player can get stuck frozen forever. So this failsafe unfreezes the player automatically after a
         /// certain # of seconds. If all goes well with no sticking, the end of this method isn't needed.
         selectionMenu.Disappear();

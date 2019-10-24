@@ -104,8 +104,8 @@ public class PlayerMovement : MonoBehaviour
 
             PathRequestManager.RequestPath(transform.position, targetPos, OnPathFound);
 
-            if (OnNewDestinationWorldPoint != null)
-                OnNewDestinationWorldPoint.Invoke();
+            //if (OnNewDestinationWorldPoint != null)
+                //OnNewDestinationWorldPoint.Invoke();
         }
     }
 

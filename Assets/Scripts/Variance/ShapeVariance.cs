@@ -16,7 +16,7 @@ public class ShapeVariance : MonoBehaviour
     public SpriteRenderer myShapeSpriteRenderer;
     public Image myImage; 
     public Sprite[] shapeOptions;
-    Sprite chosenShapeSprite;
+    public Sprite chosenShapeSprite;
 
     [Header("Sprite Masks")]
     [Tooltip("Use Sprite Masks - e.g. Pond")]
@@ -66,7 +66,7 @@ public class ShapeVariance : MonoBehaviour
             AddPolygonCollider();
     }
 
-    void RollRandoms()
+    public void RollRandoms()
     {
         spriteNumberChosen = Random.Range(0, shapeOptions.Length);
         chosenShapeSprite = shapeOptions[spriteNumberChosen];  //use above random number to point to a member of the shapeOptions array, and call it chosenShapeSprite

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class ReputationAvatar : MonoBehaviour
 {
@@ -14,10 +15,12 @@ public class ReputationAvatar : MonoBehaviour
     RARotationChange[] rotationChangers;
     RASpriteChange[] spriteChangers;
 
-    [Range(0, 1)]
-    public float reputation;
+    public float reputation;// { get; private set; }
 
-    void Start()
+    public UnityEvent OnReputation0;
+    public UnityEvent OnReputation1;
+
+    void Awake()
     {
         slider = GetComponent<Slider>();
         colorChangers = GetComponentsInChildren<RAColorChange>();
@@ -25,10 +28,12 @@ public class ReputationAvatar : MonoBehaviour
         scaleChangers = GetComponentsInChildren<RAScaleChange>();
         rotationChangers = GetComponentsInChildren<RARotationChange>();
         spriteChangers = GetComponentsInChildren<RASpriteChange>();
+        reputation = .5f;
     }
 
     void Update()
     {
+        //todo move all these to events instead of update (when reputation moves, call the event)
         DoSpriteChanges();
 
         DoColorChanges();
@@ -40,6 +45,23 @@ public class ReputationAvatar : MonoBehaviour
         DoRotationChanges();
 
         UpdateSlider();
+    }
+
+    public void ChangeReputation(float amount)
+    {
+        reputation += amount;
+        if (reputation > 1)
+        {
+            reputation = 1;
+            if (OnReputation1 != null)
+                OnReputation1.Invoke();
+        }
+        if (reputation < 0)
+        {
+            reputation = 0;
+            if (OnReputation0 != null)
+                OnReputation0.Invoke();
+        }
     }
 
     void DoSpriteChanges()

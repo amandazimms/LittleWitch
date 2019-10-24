@@ -5,8 +5,10 @@ using UnityEngine;
 [RequireComponent(typeof(TransformVariance))] //because otherwise no one sets myScale
 public class MoveAlongPath : MonoBehaviour
 {
-    public float speed = 10f;
-    public float animSpeed = .75f;
+    public float speed = .5f;
+    public float animSpeed = .9f;
+
+    PeasantStats peasantStats;
 
     Animator anim;
     [HideInInspector] public WaveSpawner waveSpawner;
@@ -21,17 +23,11 @@ public class MoveAlongPath : MonoBehaviour
 
     private void Start()
     {
+        peasantStats = GetComponent<PeasantStats>();
         anim = GetComponent<Animator>();
         StartMoveCoroutineToHut();
     }
 
-
-    public void StartMoveCoroutineToVillage()
-    {
-        moveTowardHut = false;
-        target = PathToVillage.pointsTowardVillage[0];
-        StartCoroutine("Move");
-    }
     public void StartMoveCoroutineToHut()
     {
         moveTowardHut = true;
@@ -39,21 +35,39 @@ public class MoveAlongPath : MonoBehaviour
         StartCoroutine("Move");
     }
 
+    public void StartMoveCoroutineToVillage()
+    {
+        moveTowardHut = false;
+        target = PathToVillage.pointsTowardVillage[0];
+        StartCoroutine("Move");
+    }
+
+    public void StopMoveCoroutine()
+    {
+        StopCoroutine("Move");
+        anim.SetFloat("moveSpeed", 0);
+    }
+
     public IEnumerator Move()
     {
         while (true)
         {
+            bool aPeasantIsInFrontOfMe = false;
             Vector3 dir = target.position - transform.position; 
 
-            if (peasantInFrontOfMe) 
+            if (moveTowardHut)
             {
-                if (Vector3.Distance(peasantInFrontOfMe.transform.position, transform.position) <= .5f) //this happens when pIFOM has stopped at the end of the path and I catch up to them
+                foreach (GameObject spawnedPeasant in waveSpawner.spawnedPeasants)
                 {
-                    anim.SetFloat("moveSpeed", 0);
-                    yield return null;
+                    if (spawnedPeasant != null && spawnedPeasant != gameObject && spawnedPeasant.transform.position.x > transform.position.x //first check to make sure there is a peasant there, and it's not myself, and it's in front of (towards hut from) me
+                        && Vector3.Distance(spawnedPeasant.transform.position, transform.position) <= .5f) //if I'm really close to another peasant, stop walking so we form a queue.
+                    {
+                        aPeasantIsInFrontOfMe = true;
+                        anim.SetFloat("moveSpeed", 0);
+                    }
                 }
 
-                else
+                if (!aPeasantIsInFrontOfMe) //if there's no one in my way, walk.
                 {
                     FlipSprite();
                     anim.SetFloat("moveSpeed", speed * animSpeed);
@@ -61,7 +75,7 @@ public class MoveAlongPath : MonoBehaviour
                 }
             }
 
-            else
+            else //If i'm not on the way to the hut, I'm on the way home/to village, which means I'm the only one in my immediate area, so just get out of there without caring if there are other peasants nearby
             {
                 FlipSprite();
                 anim.SetFloat("moveSpeed", speed * animSpeed);
@@ -84,7 +98,7 @@ public class MoveAlongPath : MonoBehaviour
         else
             eitherPath = PathToVillage.pointsTowardVillage;
 
-        if (waypointIndex >= eitherPath.Length - 1)
+        if (waypointIndex >= eitherPath.Length - 1) // if we reached the destination
         {
             anim.SetFloat("moveSpeed", 0);
             StopCoroutine("Move"); //must use string

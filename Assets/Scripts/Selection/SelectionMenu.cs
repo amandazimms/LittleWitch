@@ -45,6 +45,8 @@ public class SelectionMenu : MonoBehaviour
         selectionManager.OnADeselect.AddListener(OnSelectionManagerOnDeselected);
         mainCam = Camera.main;
 
+        myShapeVariance = GetComponentsInChildren<ShapeVariance>();
+
         canvas.enabled = false;
     }
 
@@ -104,7 +106,10 @@ public class SelectionMenu : MonoBehaviour
     public void EnableCanvas()
     {
         foreach (ShapeVariance var in myShapeVariance)
+        {
+            var.RollRandoms();
             var.SetShape();
+        }
 
         canvas.enabled = true;
     }

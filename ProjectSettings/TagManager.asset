@@ -7,6 +7,7 @@ TagManager:
   - GameManager
   - SelectionMenu
   - Cursor
+  - ReputationMeter
   layers:
   - Default
   - TransparentFX

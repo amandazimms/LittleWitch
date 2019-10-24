@@ -475,8 +475,7 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 4551407238660163087, guid: 2726ad9c6b885468ea2c019e842486bd, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2726ad9c6b885468ea2c019e842486bd, type: 3}
 --- !u!114 &1597688175115565512 stripped
 MonoBehaviour:
@@ -703,8 +702,7 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 4551407238660163087, guid: 2726ad9c6b885468ea2c019e842486bd, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2726ad9c6b885468ea2c019e842486bd, type: 3}
 --- !u!1 &5914494293954881309 stripped
 GameObject:
@@ -1168,8 +1166,7 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 4551407238660163087, guid: 2726ad9c6b885468ea2c019e842486bd, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2726ad9c6b885468ea2c019e842486bd, type: 3}
 --- !u!1 &6056398783901267086 stripped
 GameObject:
@@ -1396,8 +1393,7 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 4551407238660163087, guid: 2726ad9c6b885468ea2c019e842486bd, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2726ad9c6b885468ea2c019e842486bd, type: 3}
 --- !u!1 &6668642412486372787 stripped
 GameObject:

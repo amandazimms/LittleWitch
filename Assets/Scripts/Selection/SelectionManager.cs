@@ -72,7 +72,7 @@ public class SelectionManager : MonoBehaviour
         //also assign the 'new click' number to the stats' routeNumber.
         //newClickStats.mostRecentInteractNumber = newClickRouteNumber;
 
-        if (previousStatsInteractedWith != null)
+        if (previousStatsInteractedWith != null && previousStatsInteractedWith.playerEnrouteToMe == true)
         {
             previousStatsInteractedWith.StopCoroutine(previousInteractMethodName);
             previousStatsInteractedWith.waitForRoute = false; //remove these next 3 to undo SaturdaySol 
@@ -107,7 +107,7 @@ public class SelectionManager : MonoBehaviour
 
     public void OnPlayerNewDestWorld()
     {
-        if (mostRecentStatsInteractedWith != null)
+        if (mostRecentStatsInteractedWith != null && mostRecentStatsInteractedWith.playerEnrouteToMe == true)
         {
             mostRecentStatsInteractedWith.StopCoroutine(mostRecentInteractMethodName);
             mostRecentStatsInteractedWith.waitForRoute = false; //remove these next 3 to undo SaturdaySol 
