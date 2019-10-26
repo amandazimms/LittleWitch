@@ -19,7 +19,6 @@ public class GridSeb : MonoBehaviour
     int gridSizeX, gridSizeY;
 
     Node[,] grid;
-    //public List<Vector3> walkableWorldPointsOfGrid; //didn't end up needing this YET; see also end of CreateGrid
 
     void Start() //this needs to be in start because of a conflict with Pathfinding? or PathRequestManager script
     {
@@ -38,25 +37,19 @@ public class GridSeb : MonoBehaviour
         grid = new Node[gridSizeX, gridSizeY];
 
         Vector3 worldBottomLeft = transform.position - Vector3.right * gridWorldSize.x / 2 - Vector3.up * gridWorldSize.y / 2; 
-        //Original= Vector3 worldBottomLeft = transform.position - Vector3.right * gridWorldSize.x / 2 - Vector3.forward * gridWorldSize.y / 2;
 
         for (int x = 0; x < gridSizeX; x++)
         { 
             for (int y = 0; y < gridSizeY; y++)
             {
                 Vector3 worldPoint = worldBottomLeft + Vector3.right * (x * nodeDiameter + nodeRadius) + Vector3.up * (y * nodeDiameter + nodeRadius);
-                //Original= Vector3 worldPoint = worldBottomLeft + Vector3.right * (x * nodeDiameter + nodeRadius) + Vector3.forward * (y * nodeDiameter + nodeRadius);
 
                 bool walkable = true; //eveyrthing walkable by default
 
                 if (Physics2D.OverlapCircle(worldPoint, nodeRadius, collidersForMap) != null) //if we find anything to collide with that's on our mentioned layer, there's an obstacle there, 
                      walkable = false; //so mark it unwalkable. 
-                //(last 3 lines are mine; Original= bool walkable = !(Physics.CheckSphere(worldPoint, nodeRadius, unwalkableMask));
 
                 grid[x, y] = new Node(walkable, worldPoint, x, y);
-
-                //if (walkable) //see at top
-                    //walkableWorldPointsOfGrid.Add(worldPoint);
             }
         }
     }

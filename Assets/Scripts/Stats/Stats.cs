@@ -195,15 +195,16 @@ public class Stats : MonoBehaviour
         /// If something went wrong though,player would still be frozen. So check if that's true,
         /// and if so, force an unfreeze.
 
+        
         if (includeInteract)
         {
             if (isFrozenFromInteractingAndMoving && !waitForRoute) //
             {
                 isFrozenFromInteractingAndMoving = false;
-                /* todo replace this with peasant moving stuff for LW?
-                        if (_critterWander)
-                            _critterWander.ResumeNormalAfterInteraction();
-                            */
+                // todo replace this with peasant moving stuff for LW?
+                     //  if (_critterWander)
+                           // _critterWander.ResumeNormalAfterInteraction();
+                            //
                 playerEnrouteToMe = false;
                 print("!!!PROBLEM! " + gameObject.name + "'s FreezeFromMoving unfroze it, saved a stuck-glitch from " + originatingMethod + " from persisting (interact and move).");
             }
@@ -213,14 +214,14 @@ public class Stats : MonoBehaviour
             if (isFrozenFromMoving)
             {
                 isFrozenFromMoving = false;
-                /* todo replace this with peasant moving stuff for LW?
-                if (_critterWander)
-                    _critterWander.ResumeNormalAfterInteraction();
-                */
+                // todo replace this with peasant moving stuff for LW?
+               // if (_critterWander)
+                 //   _critterWander.ResumeNormalAfterInteraction();
+                
                 playerEnrouteToMe = false;
                 print("!!!PROBLEM! " + gameObject.name + "'s FreezeFromMoving unfroze it, saved a stuck-glitch from " + originatingMethod + " from persisting (move).");
             }
-        }
+        } 
     }
 
     public void UnfreezeFromMoving(bool includeInteract, string originatingMethod)
@@ -273,36 +274,14 @@ public class Stats : MonoBehaviour
 
         else //if player is on my left
             flipper = -1;
-        /*
-        if (playerStats.foodCarriedSpot.transform.position.x > pos.x) //if player's mouth is on my right
-        {
-            if (playerStats.transform.position.x > pos.x) //and the player is also on my right
-            {
-                print("flipper 1: player on right, mouth on right");
-                flipper = 1;
-            }
-            else //if player is on my LEFT but mouth is on my right (I'm standing RIGHT next to it)
-            {
-                print("flipper -1: player on LEFT, mouth on RIGHT!");
-                flipper = -1;
-            }
-        }
-
-        else if (playerStats.foodCarriedSpot.transform.position.x <= pos.x) //if player's mouth is on my left
-        {
-            if (playerStats.transform.position.x <= pos.x) //and the player is also on my left
-            {
-                print("flipper -1: player on left, mouth on left");
-                flipper = -1;
-            }
-            else //if player is on my RIGHT but mouth is on my left (I'm standing RIGHT next to it)
-            {
-                print("flipper 1: player on RIGHT, mouth on LEFT!");
-                flipper = 1;
-            }
-        }*/
 
         return new Vector3(pos.x + (posOffset.x * Mathf.Abs(scale.x) * flipper), pos.y + (posOffset.y * scale.y), pos.z); //        playerTarget = new Vector3(pos.x + (posOffset.x * flipper * scale.x), pos.y + (posOffset.y * scale.y), pos.z);
+    }
+
+    public Vector3 CalculatePlayerTargetExact(Transform targetTransform)
+    {
+        Vector3 pos = targetTransform.position;
+        return new Vector3(pos.x, pos.y, pos.z); 
     }
 
     public Vector3 CalculatePlayerTargetChild(Transform foodGOTransform, Vector3 posOffset, Transform parentTransformForBerryType) //used for berries, where sub GOs within the parent GO will be collected. 

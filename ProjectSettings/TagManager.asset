@@ -60,6 +60,21 @@ TagManager:
   - name: PotionDraining
     uniqueID: 2923312137
     locked: 0
+  - name: ForegroundTrees
+    uniqueID: 782857685
+    locked: 0
+  - name: HutInsideBG
+    uniqueID: 4237946817
+    locked: 0
+  - name: HutInsideMain
+    uniqueID: 3672600817
+    locked: 0
   - name: UI
     uniqueID: 2956262353
+    locked: 0
+  - name: Cursor
+    uniqueID: 300417829
+    locked: 0
+  - name: DontChangeAnyWithoutChangingSelectionManager
+    uniqueID: 1216673135
     locked: 0

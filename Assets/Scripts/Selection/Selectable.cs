@@ -32,6 +32,8 @@ public class Selectable : MonoBehaviour
     public UnityEngine.Events.UnityEvent OnASelected;
     public UnityEngine.Events.UnityEvent OnADeselected;
 
+    public bool overRideOriginalAlphaTo1 = false;
+
     void Awake()
     {
         gameObject.layer = LayerMask.NameToLayer("Selectable"); //this should be set in inspector anyway but just making sure. 
@@ -61,8 +63,18 @@ public class Selectable : MonoBehaviour
         {
             if (mySprites[i] != null) // && mySprites[i].enabled == true)
             {
-                SpriteRenderer spriteRend = mySprites[i];
-                myStartColors.Add(spriteRend.color);
+                if (overRideOriginalAlphaTo1)
+                {
+                    SpriteRenderer oSpriteRend = mySprites[i];
+                    Color adjustedColor = oSpriteRend.color;
+                    adjustedColor.a = 1;
+                    myStartColors.Add(adjustedColor);
+                }
+                else
+                {
+                    SpriteRenderer spriteRend = mySprites[i];
+                    myStartColors.Add(spriteRend.color);
+                }
             }
         }
 

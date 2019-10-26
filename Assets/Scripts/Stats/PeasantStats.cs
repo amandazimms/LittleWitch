@@ -74,7 +74,7 @@ public class PeasantStats : Stats
         playerStats.hasStartedAnimReachedKeyMoment = false; //player digging in bag
         while(!playerStats.hasStartedAnimReachedKeyMoment) { yield return null; }
 
-        playerStats.PotionAppearInHand(); //potion appears
+        playerStats.AppearInHand(playerStats.potionPrefab, true); //potion appears
 
         yield return new WaitForSeconds(.41f); //player closing bag
 
@@ -94,7 +94,7 @@ public class PeasantStats : Stats
         hasStartedAnimReachedKeyMoment = false;
         while (!hasStartedAnimReachedKeyMoment) { yield return null; }//potion is upright
 
-        StartCoroutine(currentlyCarriedPotionStats.ChangeLiquidSpriteRendererAndMaskOverSeconds(.6f));//# seconds should be the time the peasant is holding the bottle upright in its anim
+        StartCoroutine(currentlyCarriedPotionStats.DrinkAnim(.6f));//# seconds should be the time the peasant is holding the bottle upright in its anim
 
         hasStartedAnimFinished = false; while (!hasStartedAnimFinished) { yield return null; }
 
@@ -125,9 +125,9 @@ public class PeasantStats : Stats
     void ReceivePotion()
     {
         playerStats.numPotions--;
-        playerStats.currentlyCarriedPotion.transform.SetParent(potionCarrySpot, false);
-        currentlyCarriedPotion = playerStats.currentlyCarriedPotion;
-        playerStats.currentlyCarriedPotion = null;
+        playerStats.currentlyCarriedItem.transform.SetParent(potionCarrySpot, false);
+        currentlyCarriedPotion = playerStats.currentlyCarriedItem;
+        playerStats.currentlyCarriedItem = null;
         currentlyCarriedPotion.transform.localPosition = new Vector3(0, 0, 0);
         currentlyCarriedPotionStats = currentlyCarriedPotion.GetComponent<PotionStats>();
     }

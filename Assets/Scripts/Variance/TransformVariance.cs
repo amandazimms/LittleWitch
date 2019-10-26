@@ -36,7 +36,7 @@ public class TransformVariance : MonoBehaviour
 
     [HideInInspector] public Vector3 originalScale; //how big was the prefab set to, before this script messed with it? most are 1 but some might be eg 1.2.
 
-    void Awake()
+    public void Awake()
     {
         originalScale = transform.localScale;
 

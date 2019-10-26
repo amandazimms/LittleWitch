@@ -320,9 +320,15 @@ public class SelectionManager : MonoBehaviour
         SortingLayers.Add("Default", 0);
         SortingLayers.Add("Background", 1);
         SortingLayers.Add("Main", 2);
-        SortingLayers.Add("InFrontOfCharacters", 3);
-        SortingLayers.Add("UI", 4);
-    } 
+        SortingLayers.Add("PotionLiquid", 3);
+        SortingLayers.Add("PotionTextures", 4);
+        SortingLayers.Add("PotionDraining", 5);
+        SortingLayers.Add("ForegroundTrees", 6);
+        SortingLayers.Add("HutInsideBG", 7);
+        SortingLayers.Add("HutInsideMain", 7);
+        SortingLayers.Add("UI", 9);
+        SortingLayers.Add("Cursor", 10);
+    }
 }
 
 

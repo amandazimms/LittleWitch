@@ -5,26 +5,23 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    ReputationAvatar reputationMeter;
+    public GameObject reputationMeterGO;
     public GameObject loseCanvas;
     public GameObject winCanvas;
 
+    GameObject gameManager;
+    WaveSpawner waveSpawner;
+
+    ReputationAvatar reputationMeter;
 
     public void Awake()
     {
-        reputationMeter = GameObject.FindWithTag("ReputationMeter").GetComponent<ReputationAvatar>();
+        reputationMeter = reputationMeterGO.GetComponent<ReputationAvatar>();
         reputationMeter.OnReputation0.AddListener(OnReputationMeterReputation0);
         reputationMeter.OnReputation1.AddListener(OnReputationMeterReputation1);
-    }
 
-    void OnReputationMeterReputation0()
-    {
-        loseCanvas.SetActive(true);
-    }
-
-    void OnReputationMeterReputation1()
-    {
-        winCanvas.SetActive(true);
+        gameManager = GameObject.FindWithTag("GameManager");
+        waveSpawner = gameManager.GetComponent<WaveSpawner>();
     }
 
     public void PlayGame()
@@ -43,8 +40,31 @@ public class MainMenu : MonoBehaviour
         print("Game Quit");
     }
 
-    public void Resurrect()
+
+    void OnReputationMeterReputation0()
     {
-        
+        loseCanvas.SetActive(true);
+        reputationMeterGO.SetActive(false);
+        waveSpawner.enabled = false;
+    }
+
+    public void DoOver()    
+    {
+        print("do over");
+        reputationMeter.reputation = .2f;
+        reputationMeterGO.SetActive(true);
+        waveSpawner.enabled = true;
+    }
+
+    void OnReputationMeterReputation1()
+    {
+        winCanvas.SetActive(true);
+        reputationMeterGO.SetActive(false);
+        waveSpawner.enabled = false;
+    }
+
+    public void KeepPlaying()
+    {
+        reputationMeterGO.SetActive(true);
     }
 }

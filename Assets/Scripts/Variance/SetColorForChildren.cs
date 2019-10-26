@@ -11,6 +11,8 @@ public class SetColorForChildren : MonoBehaviour
     public bool setColor;
     public Color color;
 
+    public Color copyForBackupDoesNothing;
+
     void Update()
     {
         if (getRends)
