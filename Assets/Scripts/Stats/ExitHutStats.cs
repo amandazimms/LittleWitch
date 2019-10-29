@@ -43,6 +43,10 @@ public class ExitHutStats : Stats
         waitForRoute = true; while (waitForRoute) { yield return null; }
 
         StartCoroutine(playerStats.FreezeFromMoving(true, 3, "Apparate"));
+
+        playerStats.depthSorting.enabled = false;
+        playerStats.mySG.sortingOrder = 80;
+        playerStats.SwitchToOutsideHut();
         hutSwitcher.SwitchToOutside();
         yield return new WaitForSeconds(.5f);
 
@@ -57,7 +61,7 @@ public class ExitHutStats : Stats
 
         playerStats.HideOrShow(true);
         playerStats.transform.position = apparitionPointB.position;
-        playerStats.SwitchToOutsideHut();
+        playerStats.depthSorting.enabled = true;
         playerStats.DoPoof();
 
         yield return new WaitForSeconds(.12f);

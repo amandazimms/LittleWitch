@@ -14,6 +14,7 @@ public class Stats : MonoBehaviour
     [HideInInspector] public SelectionMenu selectionMenu;
 
     [HideInInspector] public ReputationAvatar reputationMeter;
+    [HideInInspector] public SuppliesCount suppliesCount;
 
     public bool waitForRoute;
     public bool playerEnrouteToMe; //todo [hide
@@ -46,6 +47,8 @@ public class Stats : MonoBehaviour
         selectionManager = gameManager.GetComponent<SelectionManager>();
 
         reputationMeter = GameObject.FindWithTag("ReputationMeter").GetComponent<ReputationAvatar>();
+        suppliesCount = GameObject.FindWithTag("SuppliesCount").GetComponent<SuppliesCount>();
+
 
         selectable = GetComponent<Selectable>();
         selectable.menuOffset = selectionMenuOffset;
@@ -72,6 +75,7 @@ public class Stats : MonoBehaviour
         if (myOwnPlayerMovement)
             myOwnPlayerMovement.myScale = myScale;
     }
+
 
     public void OnPlayerMovementNewDestinationWorldPoint() //if we clicked ground, player is now walking somewhere non-berry, so 
     {

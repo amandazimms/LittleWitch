@@ -5,9 +5,12 @@ using UnityEngine;
 public class HutSwitcher : MonoBehaviour
 {
     public SpriteRenderer[] spritesToHide;
-    public GameObject cauldronObject;
+    //public GameObject cauldronObject;
+    //SpriteRenderer[] cauldronSprites;
+    //public GameObject hourglassObject;
+    //SpriteRenderer[] hourglassSprites;
     public SpriteRenderer blackoutSprite;
-    SpriteRenderer[] cauldronSprites;
+    public Collider2D blackoutCollider;
 
     public List<SpriteRenderer> allFadingSprites;
 
@@ -20,10 +23,15 @@ public class HutSwitcher : MonoBehaviour
         foreach (SpriteRenderer sprite in spritesToHide)
             allFadingSprites.Add(sprite);
 
+        /*
         cauldronSprites = cauldronObject.GetComponentsInChildren<SpriteRenderer>();
         foreach (SpriteRenderer sprite in cauldronSprites)
             allFadingSprites.Add(sprite);
 
+        hourglassSprites = hourglassObject.GetComponentsInChildren<SpriteRenderer>();
+        foreach (SpriteRenderer sprite in hourglassSprites)
+            allFadingSprites.Add(sprite);
+            */
         SetInitialAlphas();
     }
 
@@ -32,12 +40,13 @@ public class HutSwitcher : MonoBehaviour
         foreach (SpriteRenderer sprite in allFadingSprites)
         {
             Color newColor = sprite.color;
-            newColor.a = 0;
+            newColor.a = 1;
             sprite.color = newColor;
         }
         Color bNewColor = blackoutSprite.color;
         bNewColor.a = 0;
         blackoutSprite.color = bNewColor;
+        blackoutCollider.enabled = false;
     }
 
     IEnumerator LerpIncrease()
@@ -61,12 +70,13 @@ public class HutSwitcher : MonoBehaviour
 
     IEnumerator GoInside()
     {
+        blackoutCollider.enabled = true;
         while (currentFadeSeconds < totalFadeSeconds)
         {
             foreach (SpriteRenderer sprite in allFadingSprites)
             {
                 Color newColor = sprite.color;
-                newColor.a = Mathf.Lerp(0, 1, lerp);
+                newColor.a = Mathf.Lerp(1, 0, lerp);
                 sprite.color = newColor;
             }
 
@@ -91,7 +101,7 @@ public class HutSwitcher : MonoBehaviour
             foreach (SpriteRenderer sprite in allFadingSprites)
             {
                 Color newColor = sprite.color;
-                newColor.a = Mathf.Lerp(1, 0, lerp);
+                newColor.a = Mathf.Lerp(0, 1, lerp);
                 sprite.color = newColor;
             }
             Color bNewColor = blackoutSprite.color;
@@ -100,5 +110,6 @@ public class HutSwitcher : MonoBehaviour
 
             yield return null;
         }
+        blackoutCollider.enabled = false;
     }
 }

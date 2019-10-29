@@ -8,8 +8,10 @@ using UnityEngine.Events;
 
 public class PlayerStats : Stats
 {
-    public int numPotions;
-    public int numPlants;
+    public CameraControls cameraControls;
+    public Transform cameraTargetOutside;
+    public Transform cameraTargetInside;
+
     public Transform carrySpot; //drag in inspector
     public GameObject currentlyCarriedItem;
 
@@ -20,10 +22,12 @@ public class PlayerStats : Stats
 
     public GameObject poof;
     public Vector3 poofPosOffset;
-    SortingGroup mySG;
+    [HideInInspector] public SortingGroup mySG;
     public string sortingGroupOutsideHut;
     public string sortingGroupInsideHut;
     public GameObject mover;
+
+    [HideInInspector] public DepthSorting depthSorting;
 
     public GameObject armForSpriteHiding;
 
@@ -37,6 +41,9 @@ public class PlayerStats : Stats
         transform.localScale = myScale;
         playerMovement.myScale = myScale;
         mySG = GetComponent<SortingGroup>();
+
+        cameraControls = Camera.main.GetComponent<CameraControls>();
+        depthSorting = GetComponent<DepthSorting>();
     }
 
     void Start()
@@ -123,12 +130,15 @@ public class PlayerStats : Stats
     {
         isInsideHut = true;
         mySG.sortingLayerName = sortingGroupInsideHut;
+        cameraControls.target = cameraTargetInside;
+
     }
 
     public void SwitchToOutsideHut()
     {
         isInsideHut = false;
         mySG.sortingLayerName = sortingGroupOutsideHut;
+        cameraControls.target = cameraTargetOutside;
     }
 
 

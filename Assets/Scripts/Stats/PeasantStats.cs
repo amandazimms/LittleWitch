@@ -23,6 +23,9 @@ public class PeasantStats : Stats
     {
         StatsAwakeStuff();
         selectable.OnASelected.AddListener(OnSelectableSelected);
+
+        suppliesCount.OnPotionCountZero.AddListener(OnSuppliesPotionCountZero);
+        suppliesCount.OnPotionCountPositive.AddListener(OnSuppliesPotionCountPositive);
     }
 
     private void Start()
@@ -44,7 +47,7 @@ public class PeasantStats : Stats
     {
         selectionMenu.DeactivateAllButtonGOs();
 
-        if (isSick && playerStats.numPotions >= 1)
+        if (isSick && suppliesCount.numPotions >= 1)
             selectionMenu.PopulateButton(0, "GIVE POTION", delegate { StartCoroutine("GivePotion"); }, "GivePotion", this);
 
         if (false)
@@ -124,7 +127,7 @@ public class PeasantStats : Stats
 
     void ReceivePotion()
     {
-        playerStats.numPotions--;
+        suppliesCount.SubtractPotion();
         playerStats.currentlyCarriedItem.transform.SetParent(potionCarrySpot, false);
         currentlyCarriedPotion = playerStats.currentlyCarriedItem;
         playerStats.currentlyCarriedItem = null;
@@ -139,6 +142,15 @@ public class PeasantStats : Stats
         ChangeReputation(.05f);
     }
 
+    void OnSuppliesPotionCountZero()
+    {
+        selectable.isCurrentlyUnselectable = true;
+    }
+
+    void OnSuppliesPotionCountPositive()
+    {
+        selectable.isCurrentlyUnselectable = false;
+    }
 
     void OnDestroy()
     {

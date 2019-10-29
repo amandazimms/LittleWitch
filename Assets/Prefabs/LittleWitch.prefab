@@ -170,7 +170,7 @@ GameObject:
   m_Component:
   - component: {fileID: 694579342583146637}
   m_Layer: 0
-  m_Name: CameraTarget
+  m_Name: CameraTargetOutside
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -541,7 +541,7 @@ Transform:
   - {fileID: 2686778902327647544}
   - {fileID: 5257269385835623949}
   m_Father: {fileID: 9173578158247178953}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -54.547}
 --- !u!212 &1545328272526174525
 SpriteRenderer:
@@ -1266,7 +1266,7 @@ Transform:
   - {fileID: 623420460974675177}
   - {fileID: 1991305934532705456}
   m_Father: {fileID: 9173578158247178953}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5638783523704656767
 GameObject:
@@ -1534,9 +1534,9 @@ SpriteMask:
   m_Sprite: {fileID: 21300000, guid: 0e2b037e7dd0e49f29f3f7935b21dea2, type: 3}
   m_MaskAlphaCutoff: 0.2
   m_FrontSortingLayerID: -622366479
-  m_BackSortingLayerID: -214274789
-  m_FrontSortingLayer: 8
-  m_BackSortingLayer: 2
+  m_BackSortingLayerID: 0
+  m_FrontSortingLayer: 0
+  m_BackSortingLayer: 0
   m_FrontSortingOrder: 1000
   m_BackSortingOrder: -1000
   m_IsCustomRangeActive: 1
@@ -1590,6 +1590,36 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &6889627840248235111
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6773460080625881091}
+  m_Layer: 0
+  m_Name: CameraTargetInside
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6773460080625881091
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6889627840248235111}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.037, y: 0.34, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 9173578158247178953}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6904845524580934220
 GameObject:
   m_ObjectHideFlags: 0
@@ -1620,7 +1650,7 @@ Transform:
   m_Children:
   - {fileID: 7654648934876486674}
   m_Father: {fileID: 9173578158247178953}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -8.577001}
 --- !u!212 &6349263541978288384
 SpriteRenderer:
@@ -2102,7 +2132,7 @@ Transform:
   m_Children:
   - {fileID: 8074515917927009622}
   m_Father: {fileID: 9173578158247178953}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 7.7620006}
 --- !u!212 &801674789875634562
 SpriteRenderer:
@@ -2457,7 +2487,7 @@ Transform:
   - {fileID: 9173578158025753161}
   - {fileID: 9173578158769600092}
   m_Father: {fileID: 9173578158247178953}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9173578158247178958
 GameObject:
@@ -2487,6 +2517,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 694579342583146637}
+  - {fileID: 6773460080625881091}
   - {fileID: 9173578158696342805}
   - {fileID: 9173578158785482949}
   - {fileID: 3643971225978152241}
@@ -2686,6 +2717,7 @@ MonoBehaviour:
   selectionManager: {fileID: 0}
   selectionMenu: {fileID: 0}
   reputationMeter: {fileID: 0}
+  suppliesCount: {fileID: 0}
   waitForRoute: 0
   playerEnrouteToMe: 0
   mostRecentInteractNumber: 0
@@ -2700,8 +2732,9 @@ MonoBehaviour:
   playerStartedNewInteract: 0
   myScale: {x: 0, y: 0, z: 0}
   displayedName: Little Witch
-  numPotions: 5
-  numPlants: 5
+  cameraControls: {fileID: 0}
+  cameraTargetOutside: {fileID: 694579342583146637}
+  cameraTargetInside: {fileID: 6773460080625881091}
   carrySpot: {fileID: 6062967020796628900}
   currentlyCarriedItem: {fileID: 0}
   potionPrefab: {fileID: 5171501848708788304, guid: ef221eed3fdf94de99a9ffc5e5d62f95,
@@ -2772,7 +2805,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50c864d7134e146509bdb0dd4af85656, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isColorChanging: 0
+  isColorChanging: 1
   mySprites: []
   myStartColors: []
   isSelected: 0
@@ -2786,6 +2819,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   overRideOriginalAlphaTo1: 0
+  isCurrentlyUnselectable: 1
 --- !u!50 &8251240367346357093
 Rigidbody2D:
   serializedVersion: 4
@@ -2829,7 +2863,7 @@ SortingGroup:
   m_GameObject: {fileID: 9173578158615165885}
   m_Enabled: 1
   m_SortingLayerID: -214274789
-  m_SortingLayer: 2
+  m_SortingLayer: 5
   m_SortingOrder: 232
 --- !u!70 &5552995725241299243
 CapsuleCollider2D:
@@ -2879,7 +2913,7 @@ Transform:
   - {fileID: 8911689568550498820}
   - {fileID: 3157057572254332016}
   m_Father: {fileID: 9173578158247178953}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9173578158769600093
 GameObject:
@@ -2995,7 +3029,7 @@ Transform:
   - {fileID: 9173578158471584593}
   - {fileID: 9173578158449484075}
   m_Father: {fileID: 9173578158247178953}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &9173578158785482948
 SpriteRenderer:
@@ -3237,7 +3271,7 @@ Transform:
   - {fileID: 9173578157713003875}
   - {fileID: 1103611618008774442}
   m_Father: {fileID: 9173578158247178953}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -57.233}
 --- !u!212 &9173578159501504076
 SpriteRenderer:

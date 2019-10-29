@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.Rendering;
 
+[RequireComponent(typeof(SortingGroup))]
 public class Selectable : MonoBehaviour
 {
     /// every selectable object in game needs one of these. 
@@ -15,7 +17,7 @@ public class Selectable : MonoBehaviour
     /// (2) tells whether this thing is currently Selected or moused over
     /// (3) does glow effect if it is selected
 
-    public bool isColorChanging = true;
+    public bool isColorChanging = false;
     public SpriteRenderer[] mySprites; 
     public List<Color> myStartColors;
 
@@ -32,7 +34,11 @@ public class Selectable : MonoBehaviour
     public UnityEngine.Events.UnityEvent OnASelected;
     public UnityEngine.Events.UnityEvent OnADeselected;
 
+
+
     public bool overRideOriginalAlphaTo1 = false;
+
+    public bool isCurrentlyUnselectable;
 
     void Awake()
     {
@@ -79,11 +85,14 @@ public class Selectable : MonoBehaviour
         }
 
         if (isColorChanging)
-            StartCoroutine(GetColor());
+            GetUnselectedColor();
     }
 
     public IEnumerator SelectionGlow()
     {
+        if (isColorChanging)
+            GetUnselectedColor();
+
         while (true)
         {
             for (int i = 0; i < mySprites.Length; i++) //flash all the sprites between normal color and glow color
@@ -117,7 +126,9 @@ public class Selectable : MonoBehaviour
             OnADeselected.Invoke();
 
         isSelected = false;
-        StopSelectionGlow();
+
+        if (!isCurrentlyUnselectable)
+            StopSelectionGlow();
     }
 
     public void SelectMe()
@@ -126,7 +137,9 @@ public class Selectable : MonoBehaviour
             OnASelected.Invoke();
 
         isSelected = true;
-        StartCoroutine("SelectionGlow");
+
+        if (!isCurrentlyUnselectable)
+            StartCoroutine("SelectionGlow");
     }
 
     public void OnMouseEnter()
@@ -148,35 +161,16 @@ public class Selectable : MonoBehaviour
     // and this would mess up the color it's supposed to be according to the season. 
     // this method below fixes that
 
-    IEnumerator GetColor() //need to update the startColor as seasons change, but doesn't need to be every frame since they change slowly
+    void GetUnselectedColor() //need to update the startColor as seasons change, but doesn't need to be every frame since they change slowly
     {
-        yield return null;
-        /*
-        if (!isSelected)
+        for (int i = 0; i < mySprites.Length; i++)
         {
-            for (int i = 0; i < mySprites.Length; i++)
+            if (mySprites[i] != null)
             {
-                if (mySprites[i] != null && mySprites[i].enabled == true)
-                {
-                    SpriteRenderer spriteRend = mySprites[i];
-                    myStartColors[i] = spriteRend.color;
-                }
+                SpriteRenderer spriteRend = mySprites[i];
+                myStartColors[i] = spriteRend.color;
             }
         }
-        yield return null;
 
-        int colorCountdown = Mathf.RoundToInt(seasons.seasonLength / 500); //if we do it ~500x per season, this only has to run like 
-                                                                           //every 15-30 seconds (depends on seasonLength). The color difference between this and doing it constantly will be negligible
-        if (colorCountdown < 1) //just in case we set very short seasons e.g. for testing, still want to wait at least 1 second per color calculation
-            colorCountdown = 1;
-
-        while (colorCountdown > 0)
-        {
-            yield return new WaitForSeconds(1);
-            colorCountdown--;
-        }
-
-        StartCoroutine(GetColor());
-        */
     }
 }

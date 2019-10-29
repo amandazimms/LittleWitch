@@ -319,15 +319,16 @@ public class SelectionManager : MonoBehaviour
     {
         SortingLayers.Add("Default", 0);
         SortingLayers.Add("Background", 1);
-        SortingLayers.Add("Main", 2);
-        SortingLayers.Add("PotionLiquid", 3);
-        SortingLayers.Add("PotionTextures", 4);
-        SortingLayers.Add("PotionDraining", 5);
-        SortingLayers.Add("ForegroundTrees", 6);
-        SortingLayers.Add("HutInsideBG", 7);
-        SortingLayers.Add("HutInsideMain", 7);
-        SortingLayers.Add("UI", 9);
-        SortingLayers.Add("Cursor", 10);
+        SortingLayers.Add("HutInsideBG", 2);
+        SortingLayers.Add("HutInsideMain", 3);
+        SortingLayers.Add("HutOutside", 4);
+        SortingLayers.Add("Main", 5);
+        SortingLayers.Add("PotionLiquid", 6);
+        SortingLayers.Add("PotionTextures", 7);
+        SortingLayers.Add("PotionDraining", 8);
+        SortingLayers.Add("ForegroundTrees", 9);
+        SortingLayers.Add("UI", 10);
+        SortingLayers.Add("Cursor", 11);
     }
 }
 

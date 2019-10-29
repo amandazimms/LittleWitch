@@ -3809,6 +3809,7 @@ MonoBehaviour:
   selectionManager: {fileID: 0}
   selectionMenu: {fileID: 0}
   reputationMeter: {fileID: 0}
+  suppliesCount: {fileID: 0}
   waitForRoute: 0
   playerEnrouteToMe: 0
   mostRecentInteractNumber: 0
@@ -3824,7 +3825,7 @@ MonoBehaviour:
   myScale: {x: 0, y: 0, z: 0}
   displayedName: Peasant
   isSick: 0
-  maxWaitTime: 20
+  maxWaitTime: 30
   currentWaitTime: 0
   faceTint: {fileID: 3253587391116787819}
   faceTintColorSick: {r: 0.32156864, g: 0.5764706, b: 0.21960784, a: 0.29803923}
@@ -3889,7 +3890,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50c864d7134e146509bdb0dd4af85656, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isColorChanging: 0
+  isColorChanging: 1
   mySprites: []
   myStartColors: []
   isSelected: 0
@@ -3902,6 +3903,8 @@ MonoBehaviour:
   OnADeselected:
     m_PersistentCalls:
       m_Calls: []
+  overRideOriginalAlphaTo1: 0
+  isCurrentlyUnselectable: 0
 --- !u!114 &5851603502677378279
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -55,8 +55,8 @@ public class EnterHutStats : Stats
         playerStats.hasStartedAnimReachedKeyMoment = false; while (!playerStats.hasStartedAnimReachedKeyMoment) { yield return null; } //poof is completely covering player, ready for apparate
 
         playerStats.HideOrShow(true);
+        playerStats.depthSorting.enabled = false;
         playerStats.transform.position = apparitionPointB.position;
-        playerStats.SwitchToInsideHut();
         playerStats.DoPoof();
 
         yield return new WaitForSeconds(.12f);
@@ -66,8 +66,8 @@ public class EnterHutStats : Stats
 
         hutSwitcher.SwitchToInside();
 
-        yield return null;
+        yield return new WaitForSeconds(hutSwitcher.totalFadeSeconds); 
+        playerStats.SwitchToInsideHut();
+        playerStats.depthSorting.enabled = true;
     }
-
-
 }

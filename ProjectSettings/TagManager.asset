@@ -8,6 +8,7 @@ TagManager:
   - SelectionMenu
   - Cursor
   - ReputationMeter
+  - SuppliesCount
   layers:
   - Default
   - TransparentFX
@@ -48,6 +49,15 @@ TagManager:
   - name: Background
     uniqueID: 1142947983
     locked: 0
+  - name: HutInsideBG
+    uniqueID: 1640772153
+    locked: 0
+  - name: HutInsideMain
+    uniqueID: 2755768155
+    locked: 0
+  - name: HutOutside
+    uniqueID: 4237946817
+    locked: 0
   - name: Main
     uniqueID: 4080692507
     locked: 0
@@ -62,12 +72,6 @@ TagManager:
     locked: 0
   - name: ForegroundTrees
     uniqueID: 782857685
-    locked: 0
-  - name: HutInsideBG
-    uniqueID: 4237946817
-    locked: 0
-  - name: HutInsideMain
-    uniqueID: 3672600817
     locked: 0
   - name: UI
     uniqueID: 2956262353
