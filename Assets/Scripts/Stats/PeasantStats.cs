@@ -6,14 +6,15 @@ using UnityEngine.Rendering;
 [RequireComponent(typeof(TransformVariance))] //because otherwise no one sets stats.myScale
 public class PeasantStats : Stats
 {
-    public bool isSick;
+    [Header("Sickness")]
+    public Condition currentCondition;
+    public enum Condition { Healthy, Stomachache, Headcold }
 
+    public GameObject stomachacheDetail, HeadcoldDetail;
+
+    [Space(10)]
     public int maxWaitTime = 20;
     public int currentWaitTime;
-
-    public SpriteRenderer faceTint;
-    public Color faceTintColorSick;
-    public Color faceTintColorNormal;
 
     public Transform potionCarrySpot; //drag in inspector
     public GameObject currentlyCarriedPotion;
@@ -28,14 +29,23 @@ public class PeasantStats : Stats
         suppliesCount.OnPotionCountPositive.AddListener(OnSuppliesPotionCountPositive);
     }
 
-    private void Start()
+    void Start()
     {
-        anim.SetTrigger("Stomachache");
-        isSick = true;
-        faceTint.color = faceTintColorSick;
+        ChooseSickness();
 
-        currentWaitTime = maxWaitTime; 
+        currentWaitTime = maxWaitTime;
         StartCoroutine("WaitAtHut");
+    }
+
+    void ChooseSickness()
+    {
+        SetCondition(Condition.Healthy);
+
+        if (dayInfo.stomachacheUnlocked)
+            SetCondition(Condition.Stomachache);
+
+        if (dayInfo.headcoldUnlocked && Random.Range(0f, 1f) > .5f)
+            SetCondition(Condition.Headcold);
     }
 
     public void OnSelectableSelected()
@@ -47,7 +57,7 @@ public class PeasantStats : Stats
     {
         selectionMenu.DeactivateAllButtonGOs();
 
-        if (isSick && suppliesCount.numPotions >= 1)
+        if (currentCondition != Condition.Healthy && suppliesCount.numPotions >= 1)
             selectionMenu.PopulateButton(0, "GIVE POTION", delegate { StartCoroutine("GivePotion"); }, "GivePotion", this);
 
         if (false)
@@ -101,7 +111,8 @@ public class PeasantStats : Stats
 
         hasStartedAnimFinished = false; while (!hasStartedAnimFinished) { yield return null; }
 
-        CureSickness();
+        SetCondition(Condition.Healthy);
+        ChangeReputation(.05f);
         moveAlong.StartMoveCoroutineToVillage();
 
 
@@ -135,11 +146,29 @@ public class PeasantStats : Stats
         currentlyCarriedPotionStats = currentlyCarriedPotion.GetComponent<PotionStats>();
     }
 
-    void CureSickness()
+    void SetCondition(Condition newCondition)
     {
-        isSick = false;
-        faceTint.color = faceTintColorNormal;
-        ChangeReputation(.05f);
+        if (newCondition == Condition.Healthy)
+        {
+            anim.SetTrigger("Healthy");
+            stomachacheDetail.SetActive(false);
+            HeadcoldDetail.SetActive(false);
+            currentCondition = Condition.Healthy;
+        }
+        if (newCondition == Condition.Stomachache)
+        {
+            anim.SetTrigger("Stomachache");
+            stomachacheDetail.SetActive(true);
+            HeadcoldDetail.SetActive(false);
+            currentCondition = Condition.Stomachache;
+        }
+        if (newCondition == Condition.Headcold)
+        {
+            anim.SetTrigger("Headcold");
+            HeadcoldDetail.SetActive(true);
+            stomachacheDetail.SetActive(false);
+            currentCondition = Condition.Headcold;
+        }
     }
 
     void OnSuppliesPotionCountZero()

@@ -279,7 +279,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 13
   m_Sprite: {fileID: 21300000, guid: 3f6cff8879526429783df75e5303158e, type: 3}
-  m_Color: {r: 0.11320752, g: 0.10840154, b: 0.10840154, a: 1}
+  m_Color: {r: 0.1537024, g: 0.16566792, b: 0.20754719, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -359,7 +359,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 135225df412324d76879e8e0e9db71db, type: 3}
-  m_Color: {r: 0.13207549, g: 0.12522252, b: 0.12576944, a: 1}
+  m_Color: {r: 0.11764706, g: 0.12522252, b: 0.15294118, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -440,7 +440,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 12
   m_Sprite: {fileID: 21300000, guid: 0e2b037e7dd0e49f29f3f7935b21dea2, type: 3}
-  m_Color: {r: 0.13207549, g: 0.12522252, b: 0.12576944, a: 1}
+  m_Color: {r: 0.11764706, g: 0.12522252, b: 0.15294118, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -536,7 +536,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 4
   m_Sprite: {fileID: 21300000, guid: b246e7a85f8764431a7abb3a3d618670, type: 3}
-  m_Color: {r: 0.13207549, g: 0.12522252, b: 0.12576944, a: 1}
+  m_Color: {r: 0.11764706, g: 0.12522252, b: 0.15294118, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -616,7 +616,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 135225df412324d76879e8e0e9db71db, type: 3}
-  m_Color: {r: 0.13207549, g: 0.12522252, b: 0.12576944, a: 1}
+  m_Color: {r: 0.11764706, g: 0.12522252, b: 0.15294118, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -696,7 +696,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 135225df412324d76879e8e0e9db71db, type: 3}
-  m_Color: {r: 0.13207549, g: 0.12522252, b: 0.12576944, a: 1}
+  m_Color: {r: 0.11764706, g: 0.12522252, b: 0.15294118, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -761,7 +761,7 @@ SortingGroup:
   m_GameObject: {fileID: 913313602500374064}
   m_Enabled: 1
   m_SortingLayerID: -622366479
-  m_SortingLayer: 8
+  m_SortingLayer: 0
   m_SortingOrder: 174
 --- !u!114 &8615441091446797757
 MonoBehaviour:
@@ -812,6 +812,7 @@ MonoBehaviour:
   selectionManager: {fileID: 0}
   selectionMenu: {fileID: 0}
   reputationMeter: {fileID: 0}
+  suppliesCount: {fileID: 0}
   waitForRoute: 0
   playerEnrouteToMe: 0
   mostRecentInteractNumber: 0
@@ -877,6 +878,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   overRideOriginalAlphaTo1: 0
+  isCurrentlyUnselectable: 0
 --- !u!70 &5021812236034847890
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8474125951274693517}
   - component: {fileID: 8474125951274693518}
   - component: {fileID: 1389634681232125955}
+  - component: {fileID: 917188175037750294}
   - component: {fileID: 6294864666415097942}
   - component: {fileID: 1528377573}
   - component: {fileID: 2931983021852864970}
@@ -68,6 +69,18 @@ MonoBehaviour:
   timeBetweenPeasants: 3
   countdown: 2
   spawnedPeasants: []
+--- !u!114 &917188175037750294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8474125951274693519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 914f35cae32874147966baf05decc453, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &6294864666415097942
 MonoBehaviour:
   m_ObjectHideFlags: 0

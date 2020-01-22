@@ -13,6 +13,8 @@ public class Stats : MonoBehaviour
     [HideInInspector] public SelectionManager selectionManager;
     [HideInInspector] public SelectionMenu selectionMenu;
 
+    [HideInInspector] public DayInfo dayInfo;
+
     [HideInInspector] public ReputationAvatar reputationMeter;
     [HideInInspector] public SuppliesCount suppliesCount;
 
@@ -45,6 +47,7 @@ public class Stats : MonoBehaviour
         GameObject selectionMenuGO = GameObject.FindWithTag("SelectionMenu");
         selectionMenu = selectionMenuGO.GetComponent<SelectionMenu>();
         selectionManager = gameManager.GetComponent<SelectionManager>();
+        dayInfo = gameManager.GetComponent<DayInfo>();
 
         reputationMeter = GameObject.FindWithTag("ReputationMeter").GetComponent<ReputationAvatar>();
         suppliesCount = GameObject.FindWithTag("SuppliesCount").GetComponent<SuppliesCount>();
