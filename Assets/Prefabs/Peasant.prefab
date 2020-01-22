@@ -3988,7 +3988,7 @@ MonoBehaviour:
   playerStartedNewInteract: 0
   myScale: {x: 0, y: 0, z: 0}
   displayedName: Peasant
-  currentCondition: 0
+  currentCondition: 1
   stomachacheDetail: {fileID: 1357560231763830319}
   HeadcoldDetail: {fileID: 1817562098218135915}
   maxWaitTime: 30
