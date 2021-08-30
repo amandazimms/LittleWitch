@@ -8,11 +8,13 @@ using UnityEngine.Rendering;
 public class Selectable : MonoBehaviour
 {
     /// every selectable object in game needs one of these. 
+
     /// every GO with this script on it needs to be on the layer "Selectable". 
     /// any other colliders in the GO's hierarchy (i.e. normal colliders for running into things)...
     /// ...need to NOT be on the Selectable layer - 
-    /// - the GOs with those colliders should be on (a) Default layer if the GO moves (Fox, raccoon)
-    /// , or (b) the CollidersForMap layer if it doesnt move (Tree, berries).
+    /// - the GOs with those colliders should be on (a) Default layer if the GO moves (witch, peasant)
+    /// , or (b) the CollidersForMap layer if it doesnt move (house, bush).
+
     /// this does: (1) sets the name of that thing (for NameDisplay to use)
     /// (2) tells whether this thing is currently Selected or moused over
     /// (3) does glow effect if it is selected
@@ -37,8 +39,7 @@ public class Selectable : MonoBehaviour
 
 
     public bool overRideOriginalAlphaTo1 = false;
-
-    public bool isCurrentlyUnselectable;
+    public bool isCurrentlyUnselectable; //todo currently no conditions where they're unselectable
 
     void Awake()
     {
@@ -133,13 +134,15 @@ public class Selectable : MonoBehaviour
 
     public void SelectMe()
     {
-        if (OnASelected != null)
-            OnASelected.Invoke();
+        if (!isCurrentlyUnselectable) {
 
-        isSelected = true;
+            if (OnASelected != null)
+                OnASelected.Invoke();
 
-        if (!isCurrentlyUnselectable)
+            isSelected = true;
+
             StartCoroutine("SelectionGlow");
+        }
     }
 
     public void OnMouseEnter()
@@ -155,12 +158,7 @@ public class Selectable : MonoBehaviour
     }
 
 
-    // this whole situation is a little more complicated for my game, because I have *every* sprite in the game slowly
-    // changing colors throughout the season. 
-    // if you had an object selected for long enough, the color it started at would be different from the one it currently is, 
-    // and this would mess up the color it's supposed to be according to the season. 
-    // this method below fixes that
-
+   //todo - delete this function? not needed?
     void GetUnselectedColor() //need to update the startColor as seasons change, but doesn't need to be every frame since they change slowly
     {
         for (int i = 0; i < mySprites.Length; i++)

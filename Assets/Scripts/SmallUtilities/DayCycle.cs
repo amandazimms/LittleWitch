@@ -4,39 +4,35 @@ using UnityEngine;
 
 public class DayCycle : MonoBehaviour
 {
-    [HideInInspector] public float sunriseSunsetLength = 5f;
+    DayInfo dayInfo;
+    float sunriseSunsetLength;
     Animator anim;
 
     [HideInInspector] public bool hasStartedAnimFinished;
     [HideInInspector] public bool hasStartedAnimReachedKeyMoment;
 
-    private void Awake()
-    {
+    private void Awake(){
         anim = GetComponent<Animator>();
+        dayInfo = gameManager.GetComponent<DayInfo>();
+
+        dayInfo.OnDay.AddListener(Day);
+        dayInfo.OnDusk.AddListener(Dusk);
+        dayInfo.OnNight.AddListener(Night);
+        dayInfo.OnDawn.AddListener(Dawn);
+
 
         anim.speed = 1 / sunriseSunsetLength;
     }
 
-    public void Dawn()
-    {
-        StartCoroutine("Sunrise");
+    private void Start() {
+        sunriseSunsetLength = dayInfo.sunriseSunsetLength;
     }
 
-    IEnumerator Sunrise()
-    {
-        anim.SetTrigger("Dawn");
-
-        hasStartedAnimFinished = false;
-        while (!hasStartedAnimFinished) { yield return null; }
-    }
-
-    public void Dusk()
-    {
+    public void Dusk()  {
         StartCoroutine("Sunset");
     }
 
-    IEnumerator Sunset()
-    {
+    IEnumerator Sunset() {
         anim.speed = 1 / sunriseSunsetLength;
         anim.SetTrigger("Dusk");
 
@@ -44,12 +40,30 @@ public class DayCycle : MonoBehaviour
         while (!hasStartedAnimFinished) { yield return null; }
     }
 
-    public void CurrentAnimationFinished()
-    {
+    public void Night(){
+
+    }
+
+    public void Dawn() {
+        StartCoroutine("Sunrise");
+    }
+
+    IEnumerator Sunrise() {
+        anim.speed = 1 / sunriseSunsetLength;
+        anim.SetTrigger("Dawn");
+
+        hasStartedAnimFinished = false;
+        while (!hasStartedAnimFinished) { yield return null; }
+    }
+
+    public void Day() {
+
+    }
+
+    public void CurrentAnimationFinished() {
         hasStartedAnimFinished = true;
     }
-    public void CurrentAnimationKeyMoment()
-    {
+    public void CurrentAnimationKeyMoment() {
         hasStartedAnimReachedKeyMoment = true;
     }
 }

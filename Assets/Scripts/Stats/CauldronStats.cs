@@ -73,13 +73,12 @@ public class CauldronStats : Stats
         if (currentBrewStage == BrewStage.Empty && suppliesCount.numPlants > 0)
             selectionMenu.PopulateButton(0, "BREW POTION", delegate { StartCoroutine("BrewPotion"); }, "BrewPotion", this);
 
-        if (currentBrewStage == BrewStage.Done && currentNumPotionsInCauldron > 0)
+        else if (currentBrewStage == BrewStage.Done && currentNumPotionsInCauldron > 0) {
             selectionMenu.PopulateButton(0, "BOTTLE A POTION", delegate { StartCoroutine("BottlePotion"); }, "BottlePotion", this);
-
-        if (currentBrewStage == BrewStage.Done && currentNumPotionsInCauldron > 0)
             selectionMenu.PopulateButton(1, "BOTTLE ALL POTIONS", delegate { StartCoroutine("BottleAllPotions"); }, "BottleAllPotions", this);
+        }
 
-        if (currentBrewStage == BrewStage.Brewing)
+        else if (currentBrewStage == BrewStage.Brewing)
             selectionMenu.actButtButt[0].interactable = false;
     }
 

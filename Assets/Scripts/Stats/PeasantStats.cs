@@ -13,7 +13,6 @@ public class PeasantStats : Stats
     public GameObject stomachacheDetail, HeadcoldDetail;
 
     [Space(10)]
-    public int maxWaitTime = 20;
     public int currentWaitTime;
 
     public Transform potionCarrySpot; //drag in inspector
@@ -33,7 +32,7 @@ public class PeasantStats : Stats
     {
         ChooseSickness();
 
-        currentWaitTime = maxWaitTime;
+        currentWaitTime = dayInfo.peasantWaitBeforeLeaveTime;
         StartCoroutine("WaitAtHut");
     }
 
@@ -41,11 +40,16 @@ public class PeasantStats : Stats
     {
         SetCondition(Condition.Healthy);
 
+        float rand = Random.Range(0f, 1f);
+
         if (dayInfo.stomachacheUnlocked)
             SetCondition(Condition.Stomachache);
 
-        if (dayInfo.headcoldUnlocked && Random.Range(0f, 1f) > .5f)
+        else if (dayInfo.headcoldUnlocked && Random.Range(0f, 1f) > .5f)
             SetCondition(Condition.Headcold);
+
+        else
+            print("no sicknesses unlocked, " + gameObject.name + " remains healthy");
     }
 
     public void OnSelectableSelected()
@@ -57,11 +61,25 @@ public class PeasantStats : Stats
     {
         selectionMenu.DeactivateAllButtonGOs();
 
-        if (currentCondition != Condition.Healthy && suppliesCount.numPotions >= 1)
+        if (currentCondition != Condition.Healthy && suppliesCount.numPotions >= 1) 
             selectionMenu.PopulateButton(0, "GIVE POTION", delegate { StartCoroutine("GivePotion"); }, "GivePotion", this);
 
-        if (false)
-            selectionMenu.actButtButt[0].interactable = false;
+        else if (currentCondition == Condition.Healthy) 
+            selectionMenu.PopulateButton(0, "CHAT", delegate { StartCoroutine("Chat"); }, "Chat", this);
+
+        else 
+            selectionMenu.actButtButt[0].interactable = false; //todo - not sure about this - only deactivates first button (from previous thing interacted with)? but should deactivate all?
+        
+    }
+
+    public IEnumerator Chat() {
+        selectionMenu.actButtButt[0].interactable = false;  //todo - not sure about this - only deactivates first button (from previous thing interacted with)? but should deactivate all?
+        selectionManager.DeselectIt(selectable);
+
+        StopCoroutine("WaitAtHut");
+        moveAlong.StopMoveCoroutine();
+
+        yield return new WaitForSeconds(1); 
     }
 
     public IEnumerator GivePotion()
@@ -123,7 +141,7 @@ public class PeasantStats : Stats
     }
 
     IEnumerator WaitAtHut()
-    {
+    {        
         yield return new WaitForSeconds(1f);
         currentWaitTime--;
 

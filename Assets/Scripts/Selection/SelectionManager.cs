@@ -42,8 +42,6 @@ public class SelectionManager : MonoBehaviour
     public Stats previousStatsInteractedWith;
     public string mostRecentInteractMethodName;
     public string previousInteractMethodName;
-    //public int mostRecentInteractNumber; //todelete?
-    //public int previousInteractNumber; //todelete?
 
     public RaycastHit2D[] hits;
     public List<Collider2D> cols;
@@ -69,9 +67,6 @@ public class SelectionManager : MonoBehaviour
         mostRecentStatsInteractedWith = newClickStats;
         mostRecentInteractMethodName = newClickMethodName;
 
-        //also assign the 'new click' number to the stats' routeNumber.
-        //newClickStats.mostRecentInteractNumber = newClickRouteNumber;
-
         if (previousStatsInteractedWith != null && previousStatsInteractedWith.playerEnrouteToMe == true)
         {
             previousStatsInteractedWith.StopCoroutine(previousInteractMethodName);
@@ -79,30 +74,6 @@ public class SelectionManager : MonoBehaviour
             previousStatsInteractedWith.playerEnrouteToMe = false;
             previousStatsInteractedWith.playerReachedMe = false;
         }
-    }
-
-    public void OLDInteractClicked(Stats newClickStats, int newClickRouteNumber) //delete this nasty mess as soon as you're sure we're not using it.
-    {
-        /*
-        print("interact clicked");
-        //shift these values over one, so the mostRecent becomes previous, and newest becomes mostRecent
-        previousStatsInteractedWith = mostRecentStatsInteractedWith;
-        previousInteractNumber = mostRecentInteractNumber;
-
-        mostRecentStatsInteractedWith = newClickStats;
-        mostRecentInteractNumber = newClickRouteNumber;
-
-        //also assign the 'new click' number to the stats' routeNumber.
-        newClickStats.mostRecentInteractNumber = newClickRouteNumber;
-
-        //if we had a previous interact before this AND that object is waiting for a route AND it's a different interact than the current one
-        //(the 3rd condition prevents this from triggering if you interrupt yourself by interacting with the same object twice)
-        if (previousStatsInteractedWith != null && previousStatsInteractedWith.waitForRoute && previousInteractNumber != newClickStats.mostRecentInteractNumber)
-        {
-            print("interrupt. prev stats is " + previousStatsInteractedWith + ", is waiting? " + previousStatsInteractedWith.waitForRoute + ". Prev interact # " + previousInteractNumber + " new # " + newClickStats.mostRecentInteractNumber);
-            previousStatsInteractedWith.playerStartedNewInteract = true;
-        }
-        print("end of interact clicked"); */
     }
 
     public void OnPlayerNewDestWorld()
@@ -115,9 +86,6 @@ public class SelectionManager : MonoBehaviour
             mostRecentStatsInteractedWith.playerReachedMe = false;
         }
 
-        //old:
-        //if (mostRecentStatsInteractedWith != null && !mostRecentStatsInteractedWith.playerEnrouteToMe) //if player was enroute somewhere when this interact was clicked
-        //  mostRecentStatsInteractedWith.playerStartedNewInteract = true;
     }
 
     void Start()
@@ -167,25 +135,6 @@ public class SelectionManager : MonoBehaviour
         sGs.Clear();
         cols.Clear();
  
-        /*  toDelete; ye olde simpler way of clicking stuff which had issues with overlapping colliders. 
-        hit = Physics2D.GetRayIntersection(Camera.main.ScreenPointToRay(Input.mousePosition), Mathf.Infinity, selectableLayer); //detect any objects in the ray's path ON THE SELECTION LAYER
-        
-        if (hit.collider != null)  //if anything was detected
-        {
-                clickedGO = hit.collider.gameObject; //name that thing clickedGO
-                TryToSelectIt(clickedGO);
-            }
-
-            else if (hit.collider == null) //if nothing was detected...
-            {
-                if (currentSelection != null) //...and we had something selected, we must be trying to click away to deselect the current selection
-                    DeselectIt(currentSelection);
-            }     
-
-        //clickedGO = hit.collider.gameObject; //name that thing clickedGO
-        //TryToSelectIt(clickedGO);
-        */
-
         hits = Physics2D.GetRayIntersectionAll(Camera.main.ScreenPointToRay(inputPos), Mathf.Infinity, selectableLayer); //detect any objects in the ray's path ON THE SELECTION LAYER            
 
         if (hits != null && hits.Length > 0) 
