@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class DayCycle : MonoBehaviour
 {
-    public GameObject gameManager;
-    public DayInfo dayInfo;
+    GameObject gameManager;
+    DayInfo dayInfo;
 
     public float dawnDuskLength;
     public Animator anim;
@@ -28,29 +28,21 @@ public class DayCycle : MonoBehaviour
     public void DoDusk()
     {
         anim.SetTrigger("Dusk");
-        print("dusk");
 
     }
 
     public void DoNight()
     {
-        print("night");
-
         //anim automatically goes to night after dusk
     }
 
     public void DoDawn()
     {
-        print("dawn");
-
         anim.SetTrigger("Dawn");
     }
 
     public void DoDay()
     {
-        print("day");
-
-
         //anim automatically goes to day after dawn
     }
 }

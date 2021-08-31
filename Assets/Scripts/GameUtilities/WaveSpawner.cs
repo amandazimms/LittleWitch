@@ -4,23 +4,49 @@ using UnityEngine;
 
 public class WaveSpawner : MonoBehaviour
 {
+    //spawns peasants, but only at night
+
     public GameObject peasantPrefab;
     public Transform spawnPoint;
 
-    public float timeBetweenPeasants = 5f;
-    public float countdown = 2f;
+    GameObject gameManager;
+    DayInfo dayInfo;
+
+    public int timeBetweenPeasants = 5;
 
     public List<GameObject> spawnedPeasants;
 
-    private void Update()
+    public void Start()
     {
-        if (countdown <= 0)
-        {
-            SpawnPeasant();
-            countdown = timeBetweenPeasants;
-        }
+        gameManager = GameObject.FindWithTag("GameManager");
+        dayInfo = gameManager.GetComponent<DayInfo>();
 
-        countdown -= Time.deltaTime; //reduces countdown by 1 every second 
+        StartCoroutine(SpawnOrWaitForNight());
+
+    }
+
+    public IEnumerator SpawnOrWaitForNight()
+    {
+        if (dayInfo.currentTime == DayInfo.TimeOfDay.Night)
+            StartCoroutine(PeasantSpawnCountdown());
+
+        else {
+            yield return new WaitForSeconds(1);
+            StartCoroutine(SpawnOrWaitForNight());
+        }
+    }
+
+    public IEnumerator PeasantSpawnCountdown()
+    {
+        SpawnPeasant();
+        int count = timeBetweenPeasants;
+
+        while (count > 0)
+        {
+            yield return new WaitForSeconds(1);
+            count--;
+        }
+        StartCoroutine(SpawnOrWaitForNight());
     }
 
     void SpawnPeasant()
@@ -36,4 +62,6 @@ public class WaveSpawner : MonoBehaviour
         if (spawnedPeasants.Count >= 2)
             thisPeasantsMover.peasantInFrontOfMe = spawnedPeasants[spawnedPeasants.Count - 2];
     }
+
+    
 }
