@@ -11,7 +11,7 @@ public class DayInfo : MonoBehaviour
 
     public int nightLength = 10;
     public int dayLength = 10;
-    public int sunriseSunsetLength = 5f;
+    public int dawnDuskLength = 5;
 
     public bool stomachacheUnlocked = false;
     public bool headcoldUnlocked = false;
@@ -25,11 +25,10 @@ public class DayInfo : MonoBehaviour
     public UnityEngine.Events.UnityEvent OnNight;
 
     public void Start() {
-        Dusk();
-
+        SetDusk();
     }
 
-    public IEnumerator TimeCountdown(int lengthToCount){
+    public IEnumerator TimeOfDayCountdown(int lengthToCount){
         int currentCount = lengthToCount;
 
         while (currentCount > 0) {
@@ -37,57 +36,57 @@ public class DayInfo : MonoBehaviour
             currentCount--;
         }
 
-        //day or night over, this will set it to dawn or dusk respectively
-        SetTimeOfDay();
+        AdvanceTimeOfDay();
     }
 
-    public void SetTimeOfDay() {
+    public void AdvanceTimeOfDay() {
 
         switch (currentTime){
-            case TimeofDay.Dusk:
-                Night();
+            case TimeOfDay.Dusk:
+                SetNight();
                 break;
-            case TimeofDay.Night:
-                Dawn();
+            case TimeOfDay.Night:
+                SetDawn();
                 break;
-            case TimeofDay.Dawn:
-                Day();
+            case TimeOfDay.Dawn:
+                SetDay();
                 break;
-            case TimeofDay.Day:
-                Dusk();
+            case TimeOfDay.Day:
+                SetDusk();
                 break;
         }
     }
 
-    public void Dusk(){
-        currentTime = TimeofDay.Dusk;
+    public void SetDusk(){
+        currentTime = TimeOfDay.Dusk;
 
         if (OnDusk != null)
             OnDusk.Invoke();
 
-        StartCoroutine(TimeCountdown(sunriseSunsetLength));
+        StartCoroutine(TimeOfDayCountdown(dawnDuskLength));
     }
-    public void Night() {
-        currentTime = TimeofDay.Night;
+    public void SetNight() {
+        currentTime = TimeOfDay.Night;
 
         if (OnNight != null)
             OnNight.Invoke();
 
-        StartCoroutine(TimeCountdown(nightLength));
+        StartCoroutine(TimeOfDayCountdown(nightLength));
     }
-    public void Dawn() {
-        currentTime = TimeofDay.Dawn;
-        
+    public void SetDawn() {
+        currentTime = TimeOfDay.Dawn;
+
         if (OnDawn != null)
             OnDawn.Invoke();
+
+        StartCoroutine(TimeOfDayCountdown(dawnDuskLength));
     }
-    public void Day() {
-        currentTime = TimeofDay.Day;
-        
+    public void SetDay() {
+        currentTime = TimeOfDay.Day;
+
         if (OnDay != null)
             OnDay.Invoke();
 
-        StartCoroutine(TimeCountdown(dayLength));
-
+        StartCoroutine(TimeOfDayCountdown(dayLength));
     }
 }

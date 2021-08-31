@@ -4,66 +4,46 @@ using UnityEngine;
 
 public class DayCycle : MonoBehaviour
 {
-    DayInfo dayInfo;
-    float sunriseSunsetLength;
-    Animator anim;
+    public GameObject gameManager;
+    public DayInfo dayInfo;
 
-    [HideInInspector] public bool hasStartedAnimFinished;
-    [HideInInspector] public bool hasStartedAnimReachedKeyMoment;
+    public float dawnDuskLength;
+    public Animator anim;
 
-    private void Awake(){
+    private void Awake()
+    {
         anim = GetComponent<Animator>();
+        gameManager = GameObject.FindWithTag("GameManager");
         dayInfo = gameManager.GetComponent<DayInfo>();
 
-        dayInfo.OnDay.AddListener(Day);
-        dayInfo.OnDusk.AddListener(Dusk);
-        dayInfo.OnNight.AddListener(Night);
-        dayInfo.OnDawn.AddListener(Dawn);
+        dayInfo.OnDay.AddListener(DoDay);
+        dayInfo.OnDusk.AddListener(DoDusk);
+        dayInfo.OnNight.AddListener(DoNight);
+        dayInfo.OnDawn.AddListener(DoDawn);
 
-
-        anim.speed = 1 / sunriseSunsetLength;
+        dawnDuskLength = dayInfo.dawnDuskLength;
+        anim.speed = 1 / dawnDuskLength;
     }
 
-    private void Start() {
-        sunriseSunsetLength = dayInfo.sunriseSunsetLength;
-    }
-
-    public void Dusk()  {
-        StartCoroutine("Sunset");
-    }
-
-    IEnumerator Sunset() {
-        anim.speed = 1 / sunriseSunsetLength;
+    public void DoDusk()
+    {
         anim.SetTrigger("Dusk");
 
-        hasStartedAnimFinished = false;
-        while (!hasStartedAnimFinished) { yield return null; }
     }
 
-    public void Night(){
-
+    public void DoNight()
+    {
+        //anim automatically goes to night after dusk
     }
 
-    public void Dawn() {
-        StartCoroutine("Sunrise");
-    }
-
-    IEnumerator Sunrise() {
-        anim.speed = 1 / sunriseSunsetLength;
+    public void DoDawn()
+    {
         anim.SetTrigger("Dawn");
-
-        hasStartedAnimFinished = false;
-        while (!hasStartedAnimFinished) { yield return null; }
     }
 
-    public void Day() {
+    public void DoDay()
+    {
 
-    }
-
-    public void CurrentAnimationFinished() {
-        hasStartedAnimFinished = true;
-    }
-    public void CurrentAnimationKeyMoment() {
-        hasStartedAnimReachedKeyMoment = true;
+        //anim automatically goes to day after dawn
     }
 }
