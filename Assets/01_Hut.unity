@@ -41758,7 +41758,7 @@ PrefabInstance:
         type: 3}
       propertyPath: dayCycle
       value: 
-      objectReference: {fileID: 759928925}
+      objectReference: {fileID: 0}
     - target: {fileID: 917188175037750294, guid: 35183c3900ba44a5bb42c34763b08905,
         type: 3}
       propertyPath: dayLength
@@ -41767,7 +41767,12 @@ PrefabInstance:
     - target: {fileID: 917188175037750294, guid: 35183c3900ba44a5bb42c34763b08905,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 917188175037750294, guid: 35183c3900ba44a5bb42c34763b08905,
+        type: 3}
+      propertyPath: currentTime
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 917188175037750294, guid: 35183c3900ba44a5bb42c34763b08905,
         type: 3}
