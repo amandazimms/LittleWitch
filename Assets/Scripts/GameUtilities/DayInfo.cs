@@ -4,17 +4,14 @@ using UnityEngine;
 
 public class DayInfo : MonoBehaviour
 {
-    public int peasantWaitBeforeLeaveTime = 20;
+    public int peasantWaitBeforeLeaveTime = 20; //todo move this to peasantStats and instead tie to overall difficulty here (determined by nightCount?)
     public float timeBetweenPeasantsAppearing;
-
-    public float dayDifficultyMultiplier;
 
     public int nightLength = 10;
     public int dayLength = 10;
     public int dawnDuskLength = 5;
 
-    public bool stomachacheUnlocked = false;
-    public bool headcoldUnlocked = false;
+    public int nightCount = 0;
 
     public TimeOfDay currentTime;
     public enum TimeOfDay { Dawn, Day, Dusk, Night }
@@ -67,6 +64,7 @@ public class DayInfo : MonoBehaviour
     }
     public void SetNight() {
         currentTime = TimeOfDay.Night;
+        nightCount++;
 
         if (OnNight != null)
             OnNight.Invoke();

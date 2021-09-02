@@ -39,7 +39,7 @@ public class Selectable : MonoBehaviour
 
 
     public bool overRideOriginalAlphaTo1 = false;
-    public bool isCurrentlyUnselectable; //todo currently no conditions where they're unselectable
+    public bool isCurrentlyUnselectable; 
 
     void Awake()
     {

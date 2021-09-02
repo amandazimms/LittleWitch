@@ -8,7 +8,7 @@ public class PeasantStats : Stats
 {
     [Header("Sickness")]
     public Condition currentCondition;
-    public enum Condition { Healthy, Stomachache, Headcold }
+    public enum Condition { Healthy, Stomachache, Headcold, Level3 }
 
     public GameObject stomachacheDetail, HeadcoldDetail;
 
@@ -23,9 +23,6 @@ public class PeasantStats : Stats
     {
         StatsAwakeStuff();
         selectable.OnASelected.AddListener(OnSelectableSelected);
-
-        suppliesCount.OnPotionCountZero.AddListener(OnSuppliesPotionCountZero);
-        suppliesCount.OnPotionCountPositive.AddListener(OnSuppliesPotionCountPositive);
     }
 
     void Start()
@@ -33,7 +30,7 @@ public class PeasantStats : Stats
         ChooseSickness();
 
         currentWaitTime = dayInfo.peasantWaitBeforeLeaveTime;
-        StartCoroutine("WaitAtHut");
+        StartCoroutine("CountdownToLeaving");
     }
 
     void ChooseSickness()
@@ -42,14 +39,17 @@ public class PeasantStats : Stats
 
         float rand = Random.Range(0f, 1f);
 
-        if (dayInfo.stomachacheUnlocked)
-            SetCondition(Condition.Stomachache);
+        if (dayInfo.nightCount > 2)
+        {
+            SetCondition(Condition.Level3); //todo - no chance to reach headcold?
 
-        else if (dayInfo.headcoldUnlocked && Random.Range(0f, 1f) > .5f)
+        }
+
+        else if (dayInfo.nightCount > 1)
             SetCondition(Condition.Headcold);
 
         else
-            print("no sicknesses unlocked, " + gameObject.name + " remains healthy");
+            SetCondition(Condition.Stomachache);
     }
 
     public void OnSelectableSelected()
@@ -76,7 +76,7 @@ public class PeasantStats : Stats
         selectionMenu.actButtButt[0].interactable = false;  //todo - not sure about this - only deactivates first button (from previous thing interacted with)? but should deactivate all?
         selectionManager.DeselectIt(selectable);
 
-        StopCoroutine("WaitAtHut");
+        StopCoroutine("CountdownToLeaving");
         moveAlong.StopMoveCoroutine();
 
         yield return new WaitForSeconds(1); 
@@ -87,7 +87,7 @@ public class PeasantStats : Stats
         selectionMenu.actButtButt[0].interactable = false;
         selectionManager.DeselectIt(selectable);
 
-        StopCoroutine("WaitAtHut");
+        StopCoroutine("CountdownToLeaving");
         moveAlong.StopMoveCoroutine();
 
         Vector3 playerTarget = CalculatePlayerTarget(transform, routeToOffset);
@@ -140,18 +140,18 @@ public class PeasantStats : Stats
             potSortGroup.sortingLayerName = "Main"; */
     }
 
-    IEnumerator WaitAtHut()
-    {        
-        yield return new WaitForSeconds(1f);
-        currentWaitTime--;
-
-        if (currentWaitTime <= 0) //time's up
+    IEnumerator CountdownToLeaving()
+    {
+        while (currentWaitTime > 0)
         {
-            ChangeReputation(-.05f);
-            moveAlong.StartMoveCoroutineToVillage();
-            yield break; //exits coroutine 
+            yield return new WaitForSeconds(1f);
+            currentWaitTime--;
         }
-        StartCoroutine("WaitAtHut");
+
+        //if we reach this point, the witch has failed to serve the peasant in time - send the back to village and lose points.
+        ChangeReputation(-.05f);
+        moveAlong.StartMoveCoroutineToVillage();
+        yield break; //exits coroutine 
     }
 
     void ReceivePotion()
@@ -173,30 +173,24 @@ public class PeasantStats : Stats
             HeadcoldDetail.SetActive(false);
             currentCondition = Condition.Healthy;
         }
-        if (newCondition == Condition.Stomachache)
+        else if (newCondition == Condition.Stomachache)
         {
             anim.SetTrigger("Stomachache");
             stomachacheDetail.SetActive(true);
             HeadcoldDetail.SetActive(false);
             currentCondition = Condition.Stomachache;
         }
-        if (newCondition == Condition.Headcold)
+        else if (newCondition == Condition.Headcold)
         {
             anim.SetTrigger("Headcold");
             HeadcoldDetail.SetActive(true);
             stomachacheDetail.SetActive(false);
             currentCondition = Condition.Headcold;
         }
-    }
-
-    void OnSuppliesPotionCountZero()
-    {
-        selectable.isCurrentlyUnselectable = true;
-    }
-
-    void OnSuppliesPotionCountPositive()
-    {
-        selectable.isCurrentlyUnselectable = false;
+        else
+        {
+            print("no condition set or no paramaters for this condition");
+        }
     }
 
     void OnDestroy()

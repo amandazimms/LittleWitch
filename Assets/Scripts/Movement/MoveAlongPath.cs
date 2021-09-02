@@ -23,7 +23,7 @@ public class MoveAlongPath : MonoBehaviour
 
     private void Start()
     {
-        peasantStats = GetComponent<PeasantStats>();
+        peasantStats = GetComponent<PeasantStats>();//todo : best if this script doesn't know about peasantStats? only events
         anim = GetComponent<Animator>();
         StartMoveCoroutineToHut();
     }
@@ -110,7 +110,6 @@ public class MoveAlongPath : MonoBehaviour
         {
             waypointIndex++;
             target = eitherPath[waypointIndex];
-            //target = PathToHut.pointsTowardHut[waypointIndex];
         }
     }
 
