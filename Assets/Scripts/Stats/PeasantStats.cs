@@ -10,7 +10,7 @@ public class PeasantStats : Stats
     public Condition currentCondition;
     public enum Condition { Healthy, FireBreath, AirHeaded, Soiled, TheDrips }
 
-    public ParticleSystem airheadPartis;
+    public ParticleSystem airheadPartis, soiledPartis;
     public ParticleSystem[] firebreathPartis;
 
     [Space(10)]
@@ -38,11 +38,14 @@ public class PeasantStats : Stats
     {
         float rand = Random.Range(0f, 1f);
 
-        if (rand > .5)
+        if (rand <= .333)
             SetCondition(Condition.AirHeaded);
 
-        else
+        else if (rand > .333 && rand < .666)
             SetCondition(Condition.FireBreath);
+
+        else if (rand >= .666)
+            SetCondition(Condition.Soiled);
 
         //if (dayInfo.nightCount > 2)
         //{
@@ -214,9 +217,13 @@ public class PeasantStats : Stats
 
     public void PlayFirebreathParticles() //triggered from animation event
     {
-        print("firebreath partis for " + gameObject.name);
         foreach (ParticleSystem parti in firebreathPartis)
             parti.Play();
+    }
+
+    public void PlaySoiledParticles() //triggered from animation event
+    {
+        soiledPartis.Play();
     }
 
     void OnDestroy()
