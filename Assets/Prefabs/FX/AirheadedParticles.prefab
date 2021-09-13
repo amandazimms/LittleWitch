@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5029270213398321227}
   - component: {fileID: 5029270213398321226}
   m_Layer: 0
-  m_Name: AirheadednessParticles
+  m_Name: AirheadedParticles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

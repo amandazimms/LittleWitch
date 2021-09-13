@@ -8,9 +8,10 @@ public class PeasantStats : Stats
 {
     [Header("Sickness")]
     public Condition currentCondition;
-    public enum Condition { Healthy, Stomachache, Headcold, Level3 }
+    public enum Condition { Healthy, FireBreath, AirHeaded, Soiled, TheDrips }
 
-    public GameObject stomachacheDetail, HeadcoldDetail;
+    public ParticleSystem airheadPartis;
+    public ParticleSystem[] firebreathPartis;
 
     [Space(10)]
     public int currentWaitTime;
@@ -35,21 +36,25 @@ public class PeasantStats : Stats
 
     void ChooseSickness()
     {
-        SetCondition(Condition.Healthy);
-
         float rand = Random.Range(0f, 1f);
 
-        if (dayInfo.nightCount > 2)
-        {
-            SetCondition(Condition.Level3); //todo - no chance to reach headcold?
-
-        }
-
-        else if (dayInfo.nightCount > 1)
-            SetCondition(Condition.Headcold);
+        if (rand > .5)
+            SetCondition(Condition.AirHeaded);
 
         else
-            SetCondition(Condition.Stomachache);
+            SetCondition(Condition.FireBreath);
+
+        //if (dayInfo.nightCount > 2)
+        //{
+        //    SetCondition(Condition.TheDrips); //todo - no chance to reach headcold?
+
+        //}
+
+        //else if (dayInfo.nightCount > 1)
+        //    SetCondition(Condition.Soiled);
+
+        //else
+        //    SetCondition(Condition.AirHeaded);
     }
 
     public void OnSelectableSelected()
@@ -64,8 +69,8 @@ public class PeasantStats : Stats
         if (currentCondition != Condition.Healthy && suppliesCount.numPotions >= 1) 
             selectionMenu.PopulateButton(0, "GIVE POTION", delegate { StartCoroutine("GivePotion"); }, "GivePotion", this);
 
-        else if (currentCondition == Condition.Healthy) 
-            selectionMenu.PopulateButton(0, "CHAT", delegate { StartCoroutine("Chat"); }, "Chat", this);
+        //else if (currentCondition == Condition.FireBreath) 
+        //    selectionMenu.PopulateButton(0, "CHAT", delegate { StartCoroutine("Chat"); }, "Chat", this);
 
         else 
             selectionMenu.actButtButt[0].interactable = false; //todo - not sure about this - only deactivates first button (from previous thing interacted with)? but should deactivate all?
@@ -75,6 +80,8 @@ public class PeasantStats : Stats
     public IEnumerator Chat() {
         selectionMenu.actButtButt[0].interactable = false;  //todo - not sure about this - only deactivates first button (from previous thing interacted with)? but should deactivate all?
         selectionManager.DeselectIt(selectable);
+
+        //todo this function doesn't do anything yet
 
         StopCoroutine("CountdownToLeaving");
         moveAlong.StopMoveCoroutine();
@@ -99,7 +106,7 @@ public class PeasantStats : Stats
 
         StartCoroutine(playerStats.FreezeFromMoving(true, 4, "GivePotion"));
 
-        anim.SetTrigger("Healthy");
+        //anim.SetTrigger("Healthy");todo delete from here?
         StartCoroutine(Anim(false, null, true, true, "GivePotion", 0, 0)); //player's anim starts
 
         playerStats.hasStartedAnimReachedKeyMoment = false; //player digging in bag
@@ -169,28 +176,47 @@ public class PeasantStats : Stats
         if (newCondition == Condition.Healthy)
         {
             anim.SetTrigger("Healthy");
-            stomachacheDetail.SetActive(false);
-            HeadcoldDetail.SetActive(false);
+            airheadPartis.Stop();
+            //todo otherPartis.Stop();
+
             currentCondition = Condition.Healthy;
         }
-        else if (newCondition == Condition.Stomachache)
+        if (newCondition == Condition.FireBreath)
         {
-            anim.SetTrigger("Stomachache");
-            stomachacheDetail.SetActive(true);
-            HeadcoldDetail.SetActive(false);
-            currentCondition = Condition.Stomachache;
+            anim.SetTrigger("FireBreath");
+           
+            currentCondition = Condition.FireBreath;
         }
-        else if (newCondition == Condition.Headcold)
+        else if (newCondition == Condition.AirHeaded)
         {
-            anim.SetTrigger("Headcold");
-            HeadcoldDetail.SetActive(true);
-            stomachacheDetail.SetActive(false);
-            currentCondition = Condition.Headcold;
+            anim.SetTrigger("AirHeaded");
+            airheadPartis.Play();
+
+            currentCondition = Condition.AirHeaded;
+        }
+        else if (newCondition == Condition.Soiled)
+        {
+            anim.SetTrigger("Soiled");
+           
+            currentCondition = Condition.Soiled;
+        }
+        else if (newCondition == Condition.TheDrips)
+        {
+            anim.SetTrigger("TheDrips");
+           
+            currentCondition = Condition.TheDrips;
         }
         else
         {
             print("no condition set or no paramaters for this condition");
         }
+    }
+
+    public void PlayFirebreathParticles() //triggered from animation event
+    {
+        print("firebreath partis for " + gameObject.name);
+        foreach (ParticleSystem parti in firebreathPartis)
+            parti.Play();
     }
 
     void OnDestroy()
