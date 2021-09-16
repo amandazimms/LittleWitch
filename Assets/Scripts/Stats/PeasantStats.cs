@@ -11,7 +11,7 @@ public class PeasantStats : Stats
     public enum Condition { Healthy, FireBreath, AirHeaded, Soiled, TheDrips }
 
     public ParticleSystem airheadPartis, soiledPartis;
-    public ParticleSystem[] firebreathPartis;
+    public ParticleSystem[] firebreathPartis, thedripsPartis;
 
     [Space(10)]
     public int currentWaitTime;
@@ -36,16 +36,17 @@ public class PeasantStats : Stats
 
     void ChooseSickness()
     {
-        float rand = Random.Range(0f, 1f);
+        SetCondition(Condition.TheDrips); 
+        //float rand = Random.Range(0f, 1f);
 
-        if (rand <= .333)
-            SetCondition(Condition.AirHeaded);
+        //if (rand <= .333)
+        //    SetCondition(Condition.AirHeaded);
 
-        else if (rand > .333 && rand < .666)
-            SetCondition(Condition.FireBreath);
+        //else if (rand > .333 && rand < .666)
+        //    SetCondition(Condition.FireBreath);
 
-        else if (rand >= .666)
-            SetCondition(Condition.Soiled);
+        //else if (rand >= .666)
+        //    SetCondition(Condition.Soiled);
 
         //if (dayInfo.nightCount > 2)
         //{
@@ -180,7 +181,11 @@ public class PeasantStats : Stats
         {
             anim.SetTrigger("Healthy");
             airheadPartis.Stop();
-            //todo otherPartis.Stop();
+            foreach (ParticleSystem parti in thedripsPartis)
+            {
+                print("stopping drip particles");
+                parti.Stop();
+            }
 
             currentCondition = Condition.Healthy;
         }
@@ -193,7 +198,7 @@ public class PeasantStats : Stats
         else if (newCondition == Condition.AirHeaded)
         {
             anim.SetTrigger("AirHeaded");
-            airheadPartis.Play();
+            airheadPartis.Play(); //since airhead particles are a looping ps, we initialize them here with play, and turn them off when condition = healthy.
 
             currentCondition = Condition.AirHeaded;
         }
@@ -206,7 +211,16 @@ public class PeasantStats : Stats
         else if (newCondition == Condition.TheDrips)
         {
             anim.SetTrigger("TheDrips");
-           
+
+            //thedripsPartis[0].Play();//since drips particles are a looping ps, we initialize them here with play, and turn them off when condition = healthy.
+            //playing the parent (at [0]) causes all the child particle systems to also play
+
+            
+            foreach (ParticleSystem parti in thedripsPartis)
+            {//since drips particles are a looping ps, we initialize them here with play, and turn them off when condition = healthy.
+                parti.Play();
+            }
+
             currentCondition = Condition.TheDrips;
         }
         else
@@ -216,13 +230,17 @@ public class PeasantStats : Stats
     }
 
     public void PlayFirebreathParticles() //triggered from animation event
-    {
+    { //since firebreath particles don't loop, we set them to play here (once each time), and don't need to turn them off when condition = healthy
         foreach (ParticleSystem parti in firebreathPartis)
+        {
             parti.Play();
+        }
+
+
     }
 
     public void PlaySoiledParticles() //triggered from animation event
-    {
+    { //since soiled particles don't loop, we set them to play here (once each time), and don't need to turn them off when condition = healthy
         soiledPartis.Play();
     }
 
