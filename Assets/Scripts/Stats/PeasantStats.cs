@@ -20,17 +20,20 @@ public class PeasantStats : Stats
     public GameObject currentlyCarriedPotion;
     public PotionStats currentlyCarriedPotionStats;
 
+    public int peasantWaitBeforeLeaveTime = 30; //todo move this to peasantStats and instead tie to overall difficulty here (determined by nightCount?)
+
     void Awake()
     {
         StatsAwakeStuff();
         selectable.OnASelected.AddListener(OnSelectableSelected);
+        dayInfo.OnDay.AddListener(LeaveAfterSunrise);
     }
 
     void Start()
     {
         ChooseSickness();
 
-        currentWaitTime = dayInfo.peasantWaitBeforeLeaveTime;
+        currentWaitTime = peasantWaitBeforeLeaveTime;
         StartCoroutine("CountdownToLeaving");
     }
 
@@ -191,9 +194,19 @@ public class PeasantStats : Stats
         }
 
         //if we reach this point, the witch has failed to serve the peasant in time - send the back to village and lose points.
+        //todo could add some visual feedback here - animate that peasant looks uneasy/impatient?
         ChangeReputation(-.05f);
         moveAlong.StartMoveCoroutineToVillage();
         yield break; //exits coroutine 
+    }
+
+    public void LeaveAfterSunrise() //triggered from event listener to DayInfo
+    {
+        //when sun comes up, all peasants leave
+        //todo could add some visual feedback here - animate that peasant looks uneasy/impatient?
+        StopCoroutine("CountdownToLeaving");
+        ChangeReputation(-.05f);
+        moveAlong.StartMoveCoroutineToVillage();
     }
 
     void ReceivePotion()
@@ -254,11 +267,7 @@ public class PeasantStats : Stats
     public void PlayFirebreathParticles() //triggered from animation event
     { //since firebreath particles don't loop, we set them to play here (once each time), and don't need to turn them off when condition = healthy
         foreach (ParticleSystem parti in firebreathPartis)
-        {
             parti.Play();
-        }
-
-
     }
 
     public void PlaySoiledParticles() //triggered from animation event
