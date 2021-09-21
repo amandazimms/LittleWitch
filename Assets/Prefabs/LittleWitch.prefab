@@ -2742,15 +2742,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b7a98e0b7b5e44e1a9d2d36738a4e5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  potionPrefabSaltwater: {fileID: 5171501848708788304, guid: 0618c67bfeb7f49bbb010b22a045e8ca,
-    type: 3}
-  potionPrefabBurning: {fileID: 5171501848708788304, guid: 6cffb6ba571f746aea2b7e6da441f8fa,
-    type: 3}
-  potionPrefabEarthy: {fileID: 5171501848708788304, guid: f400f02afe1bf4f308e2c37725ca9871,
-    type: 3}
-  potionPrefabWindblown: {fileID: 5171501848708788304, guid: 3d71d50e3e7e1495b84cdd7d8aa268dc,
-    type: 3}
-  selectionMenuOffset: {x: 0, y: 1, z: 0}
+  selectionMenuOffset: {x: 0, y: 1.3, z: 0}
   selectable: {fileID: 0}
   selectionManager: {fileID: 0}
   selectionMenu: {fileID: 0}
@@ -2776,6 +2768,14 @@ MonoBehaviour:
   cameraTargetInside: {fileID: 6773460080625881091}
   carrySpot: {fileID: 6062967020796628900}
   currentlyCarriedItem: {fileID: 0}
+  potionPrefabSaltwater: {fileID: 5171501848708788304, guid: 0618c67bfeb7f49bbb010b22a045e8ca,
+    type: 3}
+  potionPrefabBurning: {fileID: 5171501848708788304, guid: 6cffb6ba571f746aea2b7e6da441f8fa,
+    type: 3}
+  potionPrefabEarthy: {fileID: 5171501848708788304, guid: f400f02afe1bf4f308e2c37725ca9871,
+    type: 3}
+  potionPrefabWindblown: {fileID: 5171501848708788304, guid: 3d71d50e3e7e1495b84cdd7d8aa268dc,
+    type: 3}
   emptyBottlePrefab: {fileID: 3826392188841269258, guid: 8e79db7724e9a4daeb75313a60f631dc,
     type: 3}
   plantPrefab: {fileID: 5050200809910493653, guid: 6d7d40757ae764c5b8989223c7dc9028,
@@ -2850,7 +2850,7 @@ MonoBehaviour:
   isSelected: 0
   isMousedOver: 0
   displayedName: 
-  menuOffset: {x: 0, y: 0, z: 0}
+  menuOffset: {x: 0, y: 1.3, z: 0}
   OnASelected:
     m_PersistentCalls:
       m_Calls: []

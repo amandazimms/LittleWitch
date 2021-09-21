@@ -18,7 +18,7 @@ public class SelectionMenu : MonoBehaviour
     public Canvas canvas; //displays the buttons('s game objects)
     public ShapeVariance[] myShapeVariance;
 
-    public Vector3 baseScale; //0.01 for each
+    public Vector3 baseScale; //0.015 for each
 
     Camera mainCam;
 

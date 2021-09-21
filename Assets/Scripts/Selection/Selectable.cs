@@ -31,7 +31,7 @@ public class Selectable : MonoBehaviour
 
     SelectionManager selectionManager;
 
-    [HideInInspector] public Vector3 menuOffset;
+    [HideInInspector] public Vector3 menuOffset; //this is set by the Stats script
 
     public UnityEngine.Events.UnityEvent OnASelected;
     public UnityEngine.Events.UnityEvent OnADeselected;

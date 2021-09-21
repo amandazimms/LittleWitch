@@ -4307,7 +4307,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43eea464a7db6424e96687cc5a31a2ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectionMenuOffset: {x: 0, y: 1, z: 0}
+  selectionMenuOffset: {x: 0, y: 1.35, z: 0}
   selectable: {fileID: 0}
   selectionManager: {fileID: 0}
   selectionMenu: {fileID: 0}
@@ -4425,7 +4425,7 @@ MonoBehaviour:
   isSelected: 0
   isMousedOver: 0
   displayedName: 
-  menuOffset: {x: 0, y: 0, z: 0}
+  menuOffset: {x: 0, y: 1.35, z: 0}
   OnASelected:
     m_PersistentCalls:
       m_Calls: []
