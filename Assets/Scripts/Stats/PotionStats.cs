@@ -7,7 +7,7 @@ public class PotionStats : MonoBehaviour
     public GameObject cork;
     public GameObject glow;
 
-    [Space(10)]
+    [Space(5)]
 
     public SpriteMask liquidSpritemask;
     public SpriteRenderer liquidSpriteRenderer;
@@ -16,6 +16,10 @@ public class PotionStats : MonoBehaviour
 
     public Animator anim;
 
+    public void Start()
+    {
+        
+    }
 
     public IEnumerator DrinkAnim(float totalSeconds) //called from PeasantStats.GivePotion.
     {

@@ -179,7 +179,8 @@ public class Stats : MonoBehaviour
 
     public IEnumerator FreezeFromMoving(bool includeInteract, int _secondsToWait, string originatingMethod)
     {
-        /// normally, sniff/gather/any interaction triggers the player to freeze, then after anims have run,
+        /// HACKY
+        /// normally, any interaction triggers the player to freeze, then after anims have run,
         /// unfreeze with the UnfreezeNaturally method (here). If something goes wrong with pathing,
         /// player can get stuck frozen forever. So this failsafe unfreezes the player automatically after a
         /// certain # of seconds. If all goes well with no sticking, the end of this method isn't needed.
@@ -191,7 +192,7 @@ public class Stats : MonoBehaviour
         else if (!includeInteract)
             isFrozenFromMoving = true;
 
-        /* todo replace this with peasant moving stuff for LW?
+        /* todo - imported from fox fable - replace this with peasant moving stuff for LW?
         if (_critterWander)
             _critterWander.StopForInteractions();
         */

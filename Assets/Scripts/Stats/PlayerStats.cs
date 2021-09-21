@@ -15,7 +15,7 @@ public class PlayerStats : Stats
     public Transform carrySpot; //drag in inspector
     public GameObject currentlyCarriedItem;
 
-    public GameObject potionPrefab;
+    public GameObject potionPrefabSaltwater, potionPrefabBurning, potionPrefabEarthy, potionPrefabWindblown;
     public GameObject emptyBottlePrefab;
     public GameObject plantPrefab;
     //public CarriedFoodStats currentCarriedFoodStats;
@@ -73,7 +73,6 @@ public class PlayerStats : Stats
     
     public void AppearInHand(GameObject gameObjectToAppear, bool instantiateNew)
     {
-        print("appear!");
         //todo - first check for a currently carried item (shouldn't be any). If so, call the "put current item away" anim where player puts it back in bag before proceeding.
         if (instantiateNew)
 

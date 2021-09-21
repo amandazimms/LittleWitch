@@ -70,12 +70,14 @@ public class CauldronStats : Stats
     {
         selectionMenu.DeactivateAllButtonGOs();
 
+        //todo need to specify which potion
         if (currentBrewStage == BrewStage.Empty && suppliesCount.numPlants > 0)
             selectionMenu.PopulateButton(0, "BREW POTION", delegate { StartCoroutine("BrewPotion"); }, "BrewPotion", this);
 
+        //SALTWATER - need to copy paste for other cases
         else if (currentBrewStage == BrewStage.Done && currentNumPotionsInCauldron > 0) {
-            selectionMenu.PopulateButton(0, "BOTTLE A POTION", delegate { StartCoroutine("BottlePotion"); }, "BottlePotion", this);
-            selectionMenu.PopulateButton(1, "BOTTLE ALL POTIONS", delegate { StartCoroutine("BottleAllPotions"); }, "BottleAllPotions", this);
+            selectionMenu.PopulateButton(0, "BOTTLE A POTION", delegate { StartCoroutine( BottlePotion(playerStats.potionPrefabSaltwater) ); }, "BottlePotion", this);
+            selectionMenu.PopulateButton(1, "BOTTLE ALL POTIONS", delegate { StartCoroutine( BottleAllPotions(playerStats.potionPrefabSaltwater) ); }, "BottleAllPotions", this);
         }
 
         else if (currentBrewStage == BrewStage.Brewing)
@@ -127,7 +129,7 @@ public class CauldronStats : Stats
         playerStats.UnfreezeFromMoving(true, "BrewPotion"); //doing this here to speed up gameplay and make it possible to dose up a lot of peasants at once
     }
 
-    public IEnumerator BottlePotion()
+    public IEnumerator BottlePotion(GameObject potionToBottle)
     {
         selectionMenu.actButtButt[0].interactable = false;
         selectionManager.DeselectIt(selectable);
@@ -145,7 +147,7 @@ public class CauldronStats : Stats
         playerStats.hasStartedAnimReachedKeyMoment = false; //player digging in bag
         while (!playerStats.hasStartedAnimReachedKeyMoment) { yield return null; }
 
-        playerStats.AppearInHand(playerStats.potionPrefab, true); //empty bottle appear in hand
+        playerStats.AppearInHand(potionToBottle, true); //empty bottle appear in hand
         PotionStats potionStats = playerStats.currentlyCarriedItem.GetComponent<PotionStats>();
         StartCoroutine(potionStats.FillAnim(.6f));
         //note that Potion.Fill animation lines up with this; starting with dead time. So nothing to activate or synchronize there.
@@ -175,7 +177,7 @@ public class CauldronStats : Stats
         playerStats.UnfreezeFromMoving(true, "BottlePotion"); //doing this here to speed up gameplay and make it possible to dose up a lot of peasants at once
     }
 
-    public IEnumerator BottleAllPotions()
+    public IEnumerator BottleAllPotions(GameObject potionsToBottle)
     {
         selectionMenu.actButtButt[1].interactable = false;
         selectionManager.DeselectIt(selectable);
@@ -204,7 +206,7 @@ public class CauldronStats : Stats
             playerStats.hasStartedAnimReachedKeyMoment = false; //player digging in bag
             while (!playerStats.hasStartedAnimReachedKeyMoment) { yield return null; }
 
-            playerStats.AppearInHand(playerStats.potionPrefab, true); //empty bottle appear in hand
+            playerStats.AppearInHand(potionsToBottle, true); //empty bottle appear in hand
             PotionStats potionStats = playerStats.currentlyCarriedItem.GetComponent<PotionStats>();
             StartCoroutine(potionStats.FillAnim(.3f));
             //note that Potion.Fill animation lines up with this; starting with dead time. So nothing to activate or synchronize there.

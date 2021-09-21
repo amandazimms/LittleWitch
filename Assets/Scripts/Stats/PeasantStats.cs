@@ -36,17 +36,19 @@ public class PeasantStats : Stats
 
     void ChooseSickness()
     {
-        SetCondition(Condition.TheDrips); 
-        //float rand = Random.Range(0f, 1f);
+        float rand = Random.Range(0f, 1f);
 
-        //if (rand <= .333)
-        //    SetCondition(Condition.AirHeaded);
+        if (rand <= .25)
+            SetCondition(Condition.AirHeaded);
 
-        //else if (rand > .333 && rand < .666)
-        //    SetCondition(Condition.FireBreath);
+        else if (rand > .325 && rand <= .5)
+            SetCondition(Condition.FireBreath);
 
-        //else if (rand >= .666)
-        //    SetCondition(Condition.Soiled);
+        else if (rand > .5 && rand <= .75)
+            SetCondition(Condition.Soiled);
+
+        else 
+            SetCondition(Condition.TheDrips);
 
         //if (dayInfo.nightCount > 2)
         //{
@@ -70,10 +72,23 @@ public class PeasantStats : Stats
     {
         selectionMenu.DeactivateAllButtonGOs();
 
-        if (currentCondition != Condition.Healthy && suppliesCount.numPotions >= 1) 
-            selectionMenu.PopulateButton(0, "GIVE POTION", delegate { StartCoroutine("GivePotion"); }, "GivePotion", this);
+        //GIVE SALTWATER BREW
+        if (currentCondition != Condition.Healthy && suppliesCount.numPotions >= 1) //todo - in later phases: if we have this kind of potion
+            selectionMenu.PopulateButton(0, "GIVE SALTWATER BREW", delegate { StartCoroutine (GivePotion(playerStats.potionPrefabSaltwater) ); }, "GivePotion", this);
 
-        //else if (currentCondition == Condition.FireBreath) 
+        //GIVE BOTTLED BURNING
+        if (currentCondition != Condition.Healthy && suppliesCount.numPotions >= 1) //todo - in later phases: if we have this kind of potion
+            selectionMenu.PopulateButton(1, "GIVE BOTTLED BURNING", delegate { StartCoroutine(GivePotion(playerStats.potionPrefabBurning)); }, "GivePotion", this);
+
+        //GIVE EARTHY ELIXIR
+        if (currentCondition != Condition.Healthy && suppliesCount.numPotions >= 1) //todo - in later phases: if we have this kind of potion
+            selectionMenu.PopulateButton(2, "GIVE EARTHY ELIXIR", delegate { StartCoroutine(GivePotion(playerStats.potionPrefabEarthy)); }, "GivePotion", this);
+
+        //GIVE WINDBLOWN TONIC
+        if (currentCondition != Condition.Healthy && suppliesCount.numPotions >= 1) //todo - in later phases: if we have this kind of potion
+            selectionMenu.PopulateButton(3, "GIVE WINDBLOWN TONIC", delegate { StartCoroutine(GivePotion(playerStats.potionPrefabWindblown)); }, "GivePotion", this);
+
+        //else if (true) 
         //    selectionMenu.PopulateButton(0, "CHAT", delegate { StartCoroutine("Chat"); }, "Chat", this);
 
         else 
@@ -93,7 +108,7 @@ public class PeasantStats : Stats
         yield return new WaitForSeconds(1); 
     }
 
-    public IEnumerator GivePotion()
+    public IEnumerator GivePotion(GameObject potionTypeToGive)
     {
         selectionMenu.actButtButt[0].interactable = false;
         selectionManager.DeselectIt(selectable);
@@ -116,7 +131,7 @@ public class PeasantStats : Stats
         playerStats.hasStartedAnimReachedKeyMoment = false; //player digging in bag
         while(!playerStats.hasStartedAnimReachedKeyMoment) { yield return null; }
 
-        playerStats.AppearInHand(playerStats.potionPrefab, true); //potion appears
+        playerStats.AppearInHand(potionTypeToGive, true); //potion appears
 
         yield return new WaitForSeconds(.41f); //player closing bag
 
