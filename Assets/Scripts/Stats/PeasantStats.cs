@@ -39,20 +39,40 @@ public class PeasantStats : Stats
 
     void ChooseSickness()
     {
-        //todo tie to difficulty rating / day index
         float rand = Random.Range(0f, 1f);
 
-        if (rand <= .25)
-            SetCondition(Condition.AirHeaded);
-
-        else if (rand > .325 && rand <= .5)
+        if (dayInfo.nightCount < 2)
             SetCondition(Condition.FireBreath);
 
-        else if (rand > .5 && rand <= .75)
-            SetCondition(Condition.Soiled);
+        else if (dayInfo.nightCount > 2 && dayInfo.nightCount < 3)
+        {
+            if (rand <= .5)
+                SetCondition(Condition.AirHeaded);
+            else
+                SetCondition(Condition.FireBreath);
+        }
 
-        else 
-            SetCondition(Condition.TheDrips);
+        else if (dayInfo.nightCount > 3 && dayInfo.nightCount < 5 )
+        {
+            if (rand <= .3)
+                SetCondition(Condition.AirHeaded);
+            else if (rand <= .6 && rand > .3)
+                SetCondition(Condition.FireBreath);
+            else
+                SetCondition(Condition.Soiled);
+        }
+
+        else if (dayInfo.nightCount > 5 && dayInfo.nightCount < 8)
+        {
+            if (rand <= .25)
+                SetCondition(Condition.AirHeaded);
+            else if (rand <= .5 && rand > .25)
+                SetCondition(Condition.FireBreath);
+            else if (rand <= .75 && rand > .5)
+                SetCondition(Condition.Soiled);
+            else
+                SetCondition(Condition.TheDrips);
+        }
     }
 
     public void OnSelectableSelected()

@@ -12,7 +12,9 @@ public class WaveSpawner : MonoBehaviour
     GameObject gameManager;
     DayInfo dayInfo;
 
-    public int timeBetweenPeasants = 5;
+    [Tooltip("How long to wait between spawning each peasant (on day 1)?")]
+    public int timeBetweenPeasants = 4;
+
 
     public List<GameObject> spawnedPeasants;
 
