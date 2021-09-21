@@ -36,6 +36,7 @@ public class PeasantStats : Stats
 
     void ChooseSickness()
     {
+        //todo tie to difficulty rating / day index
         float rand = Random.Range(0f, 1f);
 
         if (rand <= .25)
@@ -49,18 +50,6 @@ public class PeasantStats : Stats
 
         else 
             SetCondition(Condition.TheDrips);
-
-        //if (dayInfo.nightCount > 2)
-        //{
-        //    SetCondition(Condition.TheDrips); //todo - no chance to reach headcold?
-
-        //}
-
-        //else if (dayInfo.nightCount > 1)
-        //    SetCondition(Condition.Soiled);
-
-        //else
-        //    SetCondition(Condition.AirHeaded);
     }
 
     public void OnSelectableSelected()
@@ -152,18 +141,45 @@ public class PeasantStats : Stats
         while (!hasStartedAnimReachedKeyMoment) { yield return null; }//potion is upright
 
         StartCoroutine(currentlyCarriedPotionStats.DrinkAnim(.6f));//# seconds should be the time the peasant is holding the bottle upright in its anim
+        //todo add feedback here - e.g. when drinking bottled burning, show fire FX around the peasant
 
         hasStartedAnimFinished = false; while (!hasStartedAnimFinished) { yield return null; }
 
-        SetCondition(Condition.Healthy);
-        ChangeReputation(.05f);
-        moveAlong.StartMoveCoroutineToVillage();
-
-
+        if (CureChecker(potionTypeToGive))
+        {   //if the cure was successful
+            //todo add feedback here - happy peasant, ui update
+            SetCondition(Condition.Healthy);
+            ChangeReputation(.05f);
+            moveAlong.StartMoveCoroutineToVillage();
+        } else
+        {   //if the cure was NOT successful
+            //todo add feedback here - mad peasant, ui update
+            ChangeReputation(-.1f);
+            moveAlong.StartMoveCoroutineToVillage();
+        }
         /* todo should really switch the potion to the other arm since they turned around at this point, then do the following...
         SortingGroup potSortGroup = currentlyCarriedPotion.GetComponent<SortingGroup>();
         if (potSortGroup)
             potSortGroup.sortingLayerName = "Main"; */
+    }
+
+    public bool CureChecker(GameObject potionTypeGiven)
+    {   //tests if the right potion was administered to the right sickness
+
+        if (potionTypeGiven.name == "SaltwaterBrew" && currentCondition == Condition.FireBreath)
+            return true;
+
+        else if (potionTypeGiven.name == "BottledBurning" && currentCondition == Condition.AirHeaded)
+            return true;
+
+        else if (potionTypeGiven.name == "WindblownTonic" && currentCondition == Condition.Soiled)
+            return true;
+
+        else if (potionTypeGiven.name == "EarthyElixir" && currentCondition == Condition.TheDrips)
+            return true;
+
+        else
+            return false;
     }
 
     IEnumerator CountdownToLeaving()
@@ -197,14 +213,11 @@ public class PeasantStats : Stats
             anim.SetTrigger("Healthy");
             airheadPartis.Stop();
             foreach (ParticleSystem parti in thedripsPartis)
-            {
-                print("stopping drip particles");
                 parti.Stop();
-            }
 
             currentCondition = Condition.Healthy;
         }
-        if (newCondition == Condition.FireBreath)
+        else if (newCondition == Condition.FireBreath)
         {
             anim.SetTrigger("FireBreath");
            
@@ -227,14 +240,8 @@ public class PeasantStats : Stats
         {
             anim.SetTrigger("TheDrips");
 
-            //thedripsPartis[0].Play();//since drips particles are a looping ps, we initialize them here with play, and turn them off when condition = healthy.
-            //playing the parent (at [0]) causes all the child particle systems to also play
-
-            
             foreach (ParticleSystem parti in thedripsPartis)
-            {//since drips particles are a looping ps, we initialize them here with play, and turn them off when condition = healthy.
                 parti.Play();
-            }
 
             currentCondition = Condition.TheDrips;
         }
