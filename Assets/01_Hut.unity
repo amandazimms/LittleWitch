@@ -46270,36 +46270,6 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 1123060696}
-    - target: {fileID: 3344651079091618400, guid: 8c9f276cfbd1a449fa06a2613d39070e,
-        type: 3}
-      propertyPath: zoomMax
-      value: 2.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 3344651079091618400, guid: 8c9f276cfbd1a449fa06a2613d39070e,
-        type: 3}
-      propertyPath: lowerLeftBounds.y
-      value: 0.55
-      objectReference: {fileID: 0}
-    - target: {fileID: 3344651079091618400, guid: 8c9f276cfbd1a449fa06a2613d39070e,
-        type: 3}
-      propertyPath: upperRightBounds.y
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3344651079091618400, guid: 8c9f276cfbd1a449fa06a2613d39070e,
-        type: 3}
-      propertyPath: zoomClampOffsetMultiplier.x
-      value: 1.76
-      objectReference: {fileID: 0}
-    - target: {fileID: 3344651079091618400, guid: 8c9f276cfbd1a449fa06a2613d39070e,
-        type: 3}
-      propertyPath: zoomClampOffsetMultiplier.y
-      value: 1.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 3344651079091618400, guid: 8c9f276cfbd1a449fa06a2613d39070e,
-        type: 3}
-      propertyPath: lowerLeftBounds.x
-      value: -4.3
-      objectReference: {fileID: 0}
     - target: {fileID: 3344651079091618401, guid: 8c9f276cfbd1a449fa06a2613d39070e,
         type: 3}
       propertyPath: orthographic size
@@ -46382,19 +46352,9 @@ PrefabInstance:
       objectReference: {fileID: 1284277905}
     - target: {fileID: 3344651079091618463, guid: 8c9f276cfbd1a449fa06a2613d39070e,
         type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3344651079091618463, guid: 8c9f276cfbd1a449fa06a2613d39070e,
-        type: 3}
       propertyPath: layer1also
       value: 
       objectReference: {fileID: 341370917}
-    - target: {fileID: 3344651079091618463, guid: 8c9f276cfbd1a449fa06a2613d39070e,
-        type: 3}
-      propertyPath: layer1Multi
-      value: -0.075
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8c9f276cfbd1a449fa06a2613d39070e, type: 3}
 --- !u!1001 &4223054881350744381
