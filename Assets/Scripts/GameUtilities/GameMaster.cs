@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class GameMaster : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class GameMaster : MonoBehaviour
     public int numCuredThisDay;
 
     public GameObject reputationMeterGO;
+    public GameObject morningPopup;
     public GameObject loseCanvas;
     public GameObject winCanvas;
 
@@ -18,6 +20,10 @@ public class GameMaster : MonoBehaviour
 
     GameObject gameManager;
     WaveSpawner waveSpawner;
+
+    public Text scoreText;
+    public Text plantsText; //todo
+    public Text potionsText; //todo
 
     public UnityEvent OnReputationEmpty;
     public UnityEvent OnReputationFull;
@@ -41,6 +47,8 @@ public class GameMaster : MonoBehaviour
     public void UpdateScore()
     {
         score += currentReputation * 10 * numCuredThisDay;
+        scoreText.text = score.ToString();
+
         numCuredThisDay = 0;
     }
 
