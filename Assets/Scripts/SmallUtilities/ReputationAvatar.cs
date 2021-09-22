@@ -15,20 +15,22 @@ public class ReputationAvatar : MonoBehaviour
     RARotationChange[] rotationChangers;
     RASpriteChange[] spriteChangers;
 
-    public float reputation;// { get; private set; }
-
-    public UnityEvent OnReputation0;
-    public UnityEvent OnReputation1;
+    GameObject gameManager;
+    GameMaster gameMaster;
 
     void Awake()
     {
+        gameManager = GameObject.FindWithTag("GameManager");
+        gameMaster = gameManager.GetComponent<GameMaster>();
+
         slider = GetComponent<Slider>();
         colorChangers = GetComponentsInChildren<RAColorChange>();
         positionChangers = GetComponentsInChildren<RAPositionChange>();
         scaleChangers = GetComponentsInChildren<RAScaleChange>();
         rotationChangers = GetComponentsInChildren<RARotationChange>();
         spriteChangers = GetComponentsInChildren<RASpriteChange>();
-        reputation = .5f;
+
+        gameMaster.currentReputation = .5f; //why
     }
 
     void Update()
@@ -47,36 +49,19 @@ public class ReputationAvatar : MonoBehaviour
         UpdateSlider();
     }
 
-    public void ChangeReputation(float amount)
-    {
-        reputation += amount;
-        if (reputation > 1)
-        {
-            reputation = 1;
-            if (OnReputation1 != null)
-                OnReputation1.Invoke();
-        }
-        if (reputation < 0)
-        {
-            reputation = 0;
-            if (OnReputation0 != null)
-                OnReputation0.Invoke();
-        }
-    }
-
     void DoSpriteChanges()
     {
         foreach (RASpriteChange spriteChanger in spriteChangers)
         {
-            if (reputation < .2f)
+            if (gameMaster.currentReputation < .2f)
                 spriteChanger.spriteRend.sprite = spriteChanger.sprites[0];
-            else if (reputation >= .2f && reputation < .4f)
+            else if (gameMaster.currentReputation >= .2f && gameMaster.currentReputation < .4f)
                 spriteChanger.spriteRend.sprite = spriteChanger.sprites[1];
-            else if (reputation >= .4f && reputation < .6f)
+            else if (gameMaster.currentReputation >= .4f && gameMaster.currentReputation < .6f)
                 spriteChanger.spriteRend.sprite = spriteChanger.sprites[2];
-            else if (reputation >= .6f && reputation < .8f)
+            else if (gameMaster.currentReputation >= .6f && gameMaster.currentReputation < .8f)
                 spriteChanger.spriteRend.sprite = spriteChanger.sprites[3];
-            else if (reputation >= .8f)
+            else if (gameMaster.currentReputation >= .8f)
                 spriteChanger.spriteRend.sprite = spriteChanger.sprites[4];
         }
     }
@@ -84,66 +69,66 @@ public class ReputationAvatar : MonoBehaviour
     {
         foreach (RAColorChange colorChanger in colorChangers)
         {
-            if (reputation < .25f)
-                colorChanger.spriteRend.color = Color.Lerp(colorChanger.colors[0], colorChanger.colors[1], reputation * 5);
-            else if (reputation >= .25f && reputation < .5f)
-                colorChanger.spriteRend.color = Color.Lerp(colorChanger.colors[1], colorChanger.colors[2], (reputation - .25f) * 5);
-            else if (reputation >= .5f && reputation < .75f)
-                colorChanger.spriteRend.color = Color.Lerp(colorChanger.colors[2], colorChanger.colors[3], (reputation - .5f) * 5);
-            else if (reputation >= .75f)
-                colorChanger.spriteRend.color = Color.Lerp(colorChanger.colors[3], colorChanger.colors[4], (reputation - .75f) * 5);
+            if (gameMaster.currentReputation < .25f)
+                colorChanger.spriteRend.color = Color.Lerp(colorChanger.colors[0], colorChanger.colors[1], gameMaster.currentReputation * 5);
+            else if (gameMaster.currentReputation >= .25f && gameMaster.currentReputation < .5f)
+                colorChanger.spriteRend.color = Color.Lerp(colorChanger.colors[1], colorChanger.colors[2], (gameMaster.currentReputation - .25f) * 5);
+            else if (gameMaster.currentReputation >= .5f && gameMaster.currentReputation < .75f)
+                colorChanger.spriteRend.color = Color.Lerp(colorChanger.colors[2], colorChanger.colors[3], (gameMaster.currentReputation - .5f) * 5);
+            else if (gameMaster.currentReputation >= .75f)
+                colorChanger.spriteRend.color = Color.Lerp(colorChanger.colors[3], colorChanger.colors[4], (gameMaster.currentReputation - .75f) * 5);
         }
     }
     void DoPositionChanges()
     {
         foreach (RAPositionChange posChanger in positionChangers)
         {
-            if (reputation < .25f)
-                posChanger.transform.localPosition = Vector3.Lerp(posChanger.positions[0], posChanger.positions[1], reputation * 5);
-            else if (reputation >= .25f && reputation < .5f)
-                posChanger.transform.localPosition = Vector3.Lerp(posChanger.positions[1], posChanger.positions[2], (reputation - .25f) * 5);
-            else if (reputation >= .5f && reputation < .75f)
-                posChanger.transform.localPosition = Vector3.Lerp(posChanger.positions[2], posChanger.positions[3], (reputation - .5f) * 5);
-            else if (reputation >= .75f)
-                posChanger.transform.localPosition = Vector3.Lerp(posChanger.positions[3], posChanger.positions[4], (reputation - .75f) * 5);
+            if (gameMaster.currentReputation < .25f)
+                posChanger.transform.localPosition = Vector3.Lerp(posChanger.positions[0], posChanger.positions[1], gameMaster.currentReputation * 5);
+            else if (gameMaster.currentReputation >= .25f && gameMaster.currentReputation < .5f)
+                posChanger.transform.localPosition = Vector3.Lerp(posChanger.positions[1], posChanger.positions[2], (gameMaster.currentReputation - .25f) * 5);
+            else if (gameMaster.currentReputation >= .5f && gameMaster.currentReputation < .75f)
+                posChanger.transform.localPosition = Vector3.Lerp(posChanger.positions[2], posChanger.positions[3], (gameMaster.currentReputation - .5f) * 5);
+            else if (gameMaster.currentReputation >= .75f)
+                posChanger.transform.localPosition = Vector3.Lerp(posChanger.positions[3], posChanger.positions[4], (gameMaster.currentReputation - .75f) * 5);
         }
     }
     void DoScaleChanges()
     {
         foreach (RAScaleChange scaleChanger in scaleChangers)
         {
-            if (reputation < .25f)
-                scaleChanger.transform.localScale = Vector3.Lerp(scaleChanger.scales[0], scaleChanger.scales[1], reputation * 5);
-            else if (reputation >= .25f && reputation < .5f)
-                scaleChanger.transform.localScale = Vector3.Lerp(scaleChanger.scales[1], scaleChanger.scales[2], (reputation - .25f) * 5);
-            else if (reputation >= .5f && reputation < .75f)
-                scaleChanger.transform.localScale = Vector3.Lerp(scaleChanger.scales[2], scaleChanger.scales[3], (reputation - .5f) * 5);
-            else if (reputation >= .75f)
-                scaleChanger.transform.localScale = Vector3.Lerp(scaleChanger.scales[3], scaleChanger.scales[4], (reputation - .75f) * 5);
+            if (gameMaster.currentReputation < .25f)
+                scaleChanger.transform.localScale = Vector3.Lerp(scaleChanger.scales[0], scaleChanger.scales[1], gameMaster.currentReputation * 5);
+            else if (gameMaster.currentReputation >= .25f && gameMaster.currentReputation < .5f)
+                scaleChanger.transform.localScale = Vector3.Lerp(scaleChanger.scales[1], scaleChanger.scales[2], (gameMaster.currentReputation - .25f) * 5);
+            else if (gameMaster.currentReputation >= .5f && gameMaster.currentReputation < .75f)
+                scaleChanger.transform.localScale = Vector3.Lerp(scaleChanger.scales[2], scaleChanger.scales[3], (gameMaster.currentReputation - .5f) * 5);
+            else if (gameMaster.currentReputation >= .75f)
+                scaleChanger.transform.localScale = Vector3.Lerp(scaleChanger.scales[3], scaleChanger.scales[4], (gameMaster.currentReputation - .75f) * 5);
         }
     }
     void DoRotationChanges()
     {
         foreach (RARotationChange rotationChanger in rotationChangers)
         {
-            if (reputation < .25f)
+            if (gameMaster.currentReputation < .25f)
             {
-                Vector3 rot = Vector3.Lerp(rotationChanger.rotations[0], rotationChanger.rotations[1], reputation * 5);
+                Vector3 rot = Vector3.Lerp(rotationChanger.rotations[0], rotationChanger.rotations[1], gameMaster.currentReputation * 5);
                 rotationChanger.transform.localRotation = Quaternion.Euler(rot.x, rot.y, rot.z);
             }
-            else if (reputation >= .25f && reputation < .5f)
+            else if (gameMaster.currentReputation >= .25f && gameMaster.currentReputation < .5f)
             {
-                Vector3 rot = Vector3.Lerp(rotationChanger.rotations[1], rotationChanger.rotations[2], (reputation - .25f) * 5);
+                Vector3 rot = Vector3.Lerp(rotationChanger.rotations[1], rotationChanger.rotations[2], (gameMaster.currentReputation - .25f) * 5);
                 rotationChanger.transform.localRotation = Quaternion.Euler(rot.x, rot.y, rot.z);
             }
-            else if (reputation >= .5f && reputation < .75f)
+            else if (gameMaster.currentReputation >= .5f && gameMaster.currentReputation < .75f)
             {
-                Vector3 rot = Vector3.Lerp(rotationChanger.rotations[2], rotationChanger.rotations[3], (reputation - .5f) * 5);
+                Vector3 rot = Vector3.Lerp(rotationChanger.rotations[2], rotationChanger.rotations[3], (gameMaster.currentReputation - .5f) * 5);
                 rotationChanger.transform.localRotation = Quaternion.Euler(rot.x, rot.y, rot.z);
             }
-            else if (reputation >= .75f)
+            else if (gameMaster.currentReputation >= .75f)
             {
-                Vector3 rot = Vector3.Lerp(rotationChanger.rotations[3], rotationChanger.rotations[4], (reputation - .75f) * 5);
+                Vector3 rot = Vector3.Lerp(rotationChanger.rotations[3], rotationChanger.rotations[4], (gameMaster.currentReputation - .75f) * 5);
                 rotationChanger.transform.localRotation = Quaternion.Euler(rot.x, rot.y, rot.z);
             }
         }
@@ -154,6 +139,6 @@ public class ReputationAvatar : MonoBehaviour
         sliderColors.disabledColor = sliderColorRef.color;
         slider.colors = sliderColors;
 
-        slider.value = reputation;
+        slider.value = gameMaster.currentReputation;
     }
 }

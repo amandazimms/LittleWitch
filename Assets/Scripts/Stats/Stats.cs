@@ -14,6 +14,7 @@ public class Stats : MonoBehaviour
     [HideInInspector] public SelectionMenu selectionMenu;
 
     [HideInInspector] public DayInfo dayInfo;
+    [HideInInspector] public GameMaster gameMaster;
 
     [HideInInspector] public ReputationAvatar reputationMeter;
     [HideInInspector] public SuppliesCount suppliesCount;
@@ -48,6 +49,8 @@ public class Stats : MonoBehaviour
         selectionMenu = selectionMenuGO.GetComponent<SelectionMenu>();
         selectionManager = gameManager.GetComponent<SelectionManager>();
         dayInfo = gameManager.GetComponent<DayInfo>();
+        gameMaster = gameManager.GetComponent<GameMaster>();
+
 
         reputationMeter = GameObject.FindWithTag("ReputationMeter").GetComponent<ReputationAvatar>();
         suppliesCount = GameObject.FindWithTag("SuppliesCount").GetComponent<SuppliesCount>();
@@ -110,7 +113,7 @@ public class Stats : MonoBehaviour
 
     public void ChangeReputation(float amount)
     {
-        reputationMeter.ChangeReputation(amount);
+        gameMaster.ChangeReputation(amount);
     }
 
     public IEnumerator WaitWhilePlayerEnrouteToMe(bool isMovingTarget, bool bothFaceEachother)

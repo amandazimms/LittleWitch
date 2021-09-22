@@ -44,7 +44,7 @@ public class PeasantStats : Stats
         if (dayInfo.nightCount < 2)
             SetCondition(Condition.FireBreath);
 
-        else if (dayInfo.nightCount > 2 && dayInfo.nightCount < 3)
+        else if (dayInfo.nightCount >= 2 && dayInfo.nightCount < 3)
         {
             if (rand <= .5)
                 SetCondition(Condition.AirHeaded);
@@ -52,7 +52,7 @@ public class PeasantStats : Stats
                 SetCondition(Condition.FireBreath);
         }
 
-        else if (dayInfo.nightCount > 3 && dayInfo.nightCount < 5 )
+        else if (dayInfo.nightCount >= 3 && dayInfo.nightCount < 5 )
         {
             if (rand <= .3)
                 SetCondition(Condition.AirHeaded);
@@ -62,7 +62,7 @@ public class PeasantStats : Stats
                 SetCondition(Condition.Soiled);
         }
 
-        else if (dayInfo.nightCount > 5 && dayInfo.nightCount < 8)
+        else if (dayInfo.nightCount >= 5 && dayInfo.nightCount < 8)
         {
             if (rand <= .25)
                 SetCondition(Condition.AirHeaded);
@@ -73,6 +73,8 @@ public class PeasantStats : Stats
             else
                 SetCondition(Condition.TheDrips);
         }
+
+
     }
 
     public void OnSelectableSelected()
@@ -173,6 +175,7 @@ public class PeasantStats : Stats
             //todo add feedback here - happy peasant, ui update
             SetCondition(Condition.Healthy);
             ChangeReputation(.05f);
+            gameMaster.numCuredThisDay++;
             moveAlong.StartMoveCoroutineToVillage();
         } else
         {   //if the cure was NOT successful
@@ -225,7 +228,10 @@ public class PeasantStats : Stats
         //when sun comes up, all peasants leave
         //todo could add some visual feedback here - animate that peasant looks uneasy/impatient?
         StopCoroutine("CountdownToLeaving");
-        ChangeReputation(-.05f);
+
+        if (currentCondition != Condition.Healthy) //if I haven't been cured yet
+            ChangeReputation(-.05f);
+
         moveAlong.StartMoveCoroutineToVillage();
     }
 

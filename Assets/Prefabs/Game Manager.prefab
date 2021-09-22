@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8474125951274693517}
   - component: {fileID: 8474125951274693518}
+  - component: {fileID: 8456950346195941407}
   - component: {fileID: 1389634681232125955}
   - component: {fileID: 917188175037750294}
   - component: {fileID: 6294864666415097942}
@@ -51,6 +52,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   thisBuild: 0
+--- !u!114 &8456950346195941407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8474125951274693519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d516bfcb6239649a5961e99e8d41af48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  reputationMeterGO: {fileID: 0}
+  loseCanvas: {fileID: 0}
+  winCanvas: {fileID: 0}
 --- !u!114 &1389634681232125955
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -66,8 +82,7 @@ MonoBehaviour:
   peasantPrefab: {fileID: 8037213524033587012, guid: 7f1837b6e48994ab58322772af1ad0bf,
     type: 3}
   spawnPoint: {fileID: 0}
-  timeBetweenPeasants: 3
-  countdown: 2
+  timeBetweenPeasants: 4
   spawnedPeasants: []
 --- !u!114 &917188175037750294
 MonoBehaviour:
@@ -81,6 +96,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 914f35cae32874147966baf05decc453, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentNightLength: 8
+  dayLength: 1
+  dawnDuskLength: 15
+  extraLengthPerNight: 4
+  nightCount: 0
+  currentTime: 1
+  OnDawn:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDay:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDusk:
+    m_PersistentCalls:
+      m_Calls: []
+  OnNight:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &6294864666415097942
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -100,8 +133,8 @@ MonoBehaviour:
   population: []
   selectableLayer:
     serializedVersion: 2
-    m_Bits: 0
-  glowColor: {r: 0, g: 0, b: 0, a: 0}
+    m_Bits: 512
+  glowColor: {r: 1, g: 1, b: 1, a: 0.8}
   glowSpeed: 0.4
   OnASelect:
     m_PersistentCalls:
@@ -152,10 +185,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collidersForMap:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   displayGridGizmos: 0
-  gridWorldSize: {x: 0, y: 0}
-  nodeRadius: 0
+  gridWorldSize: {x: 13, y: 1.5}
+  nodeRadius: 0.02
 --- !u!114 &8256854720690093966
 MonoBehaviour:
   m_ObjectHideFlags: 0

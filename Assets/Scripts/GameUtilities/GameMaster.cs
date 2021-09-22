@@ -2,26 +2,67 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Events;
 
-public class MainMenu : MonoBehaviour
+public class GameMaster : MonoBehaviour
 {
+    public float currentReputation;
+    public float score;
+    public int numCuredThisDay;
+
     public GameObject reputationMeterGO;
     public GameObject loseCanvas;
     public GameObject winCanvas;
 
+    public DayInfo dayInfo;
+
     GameObject gameManager;
     WaveSpawner waveSpawner;
 
-    ReputationAvatar reputationMeter;
+    public UnityEvent OnReputationEmpty;
+    public UnityEvent OnReputationFull;
 
     public void Awake()
     {
-        reputationMeter = reputationMeterGO.GetComponent<ReputationAvatar>();
-        reputationMeter.OnReputation0.AddListener(OnReputationMeterReputation0);
-        reputationMeter.OnReputation1.AddListener(OnReputationMeterReputation1);
-
         gameManager = GameObject.FindWithTag("GameManager");
         waveSpawner = gameManager.GetComponent<WaveSpawner>();
+
+        dayInfo = GetComponent<DayInfo>();
+
+        dayInfo.OnDay.AddListener(BeginningOfDay);
+        dayInfo.OnFinalMorning.AddListener(OnWinGame);
+    }
+
+    public void BeginningOfDay()
+    {
+        UpdateScore();
+    }
+
+    public void UpdateScore()
+    {
+        score += currentReputation * 10 * numCuredThisDay;
+        numCuredThisDay = 0;
+    }
+
+
+    public void ChangeReputation(float amount)
+    {
+        currentReputation += amount;
+
+        if (currentReputation > 1)
+        {
+            currentReputation = 1;
+            if (OnReputationFull != null)
+                OnReputationFull.Invoke();
+        }
+        if (currentReputation < 0)
+        {
+            currentReputation = 0;
+            OnLoseGame();
+
+            if (OnReputationEmpty != null)
+                OnReputationEmpty.Invoke();
+        }
     }
 
     public void PlayGame()
@@ -40,8 +81,7 @@ public class MainMenu : MonoBehaviour
         print("Game Quit");
     }
 
-
-    void OnReputationMeterReputation0()
+    void OnLoseGame()
     {
         loseCanvas.SetActive(true);
         reputationMeterGO.SetActive(false);
@@ -51,13 +91,15 @@ public class MainMenu : MonoBehaviour
     public void DoOver()    
     {
         print("do over");
-        reputationMeter.reputation = .2f;
+        currentReputation = .2f;
         reputationMeterGO.SetActive(true);
         waveSpawner.enabled = true;
     }
 
-    void OnReputationMeterReputation1()
+    void OnWinGame()
     {
+        UpdateScore();
+
         winCanvas.SetActive(true);
         reputationMeterGO.SetActive(false);
         waveSpawner.enabled = false;

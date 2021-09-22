@@ -9,7 +9,13 @@ public class DayInfo : MonoBehaviour
     public int currentNightLength = 8;
     public int dayLength = 6;
     public int dawnDuskLength = 10;
+    [Tooltip("Every subsequent night, the nightLength will be this many seconds longer.")]
     public int extraLengthPerNight = 4;
+
+    [Space(5)]
+
+    [Tooltip("how many nights in this game? e.g. end after this many nights have completed")]
+    public int finalNight = 10;
 
     [Space(5)]
 
@@ -23,6 +29,7 @@ public class DayInfo : MonoBehaviour
     public UnityEngine.Events.UnityEvent OnDay;
     public UnityEngine.Events.UnityEvent OnDusk;
     public UnityEngine.Events.UnityEvent OnNight;
+    public UnityEngine.Events.UnityEvent OnFinalMorning;
 
     public void Start() {
         SetDusk();
@@ -89,6 +96,12 @@ public class DayInfo : MonoBehaviour
         if (OnDay != null)
             OnDay.Invoke();
 
-        StartCoroutine(TimeOfDayCountdown(dayLength));
+        if (nightCount != finalNight) //if it's any other day...
+            StartCoroutine(TimeOfDayCountdown(dayLength));
+        else //if it's the final day and the game is over...
+        {
+            if (OnFinalMorning != null)
+                OnFinalMorning.Invoke();
+        }
     }
 }
