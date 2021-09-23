@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 3e9ba516d79ac4e799f69c61d2201565
+guid: 4b4aa409c4b3848d5a70a4e11003e688
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -8,9 +8,9 @@ TrueTypeFontImporter:
   characterSpacing: 0
   characterPadding: 1
   includeFontData: 1
-  fontName: Sqwoze
+  fontName: Curely
   fontNames:
-  - Sqwoze
+  - Curely
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
