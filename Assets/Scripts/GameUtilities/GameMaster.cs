@@ -21,9 +21,14 @@ public class GameMaster : MonoBehaviour
     GameObject gameManager;
     WaveSpawner waveSpawner;
 
+    [Header("On Main Overlay")]
     public Text scoreText;
     public Text plantsText; //todo
     public Text potionsText; //todo
+
+    [Header("On Morning Popup")]
+    public Text townsfolkText;
+    public Text reputationText, scoreDailyText;
 
     public UnityEvent OnReputationEmpty;
     public UnityEvent OnReputationFull;
@@ -41,15 +46,36 @@ public class GameMaster : MonoBehaviour
 
     public void BeginningOfDay()
     {
+
         UpdateScore();
+        StartCoroutine(DisplayMorningPopup());
     }
 
     public void UpdateScore()
     {
-        score += currentReputation * 10 * numCuredThisDay;
-        scoreText.text = score.ToString();
+        //CALCULATE TODAY'S SCORE ADDER
+        int scoreAddingToday = (int)(currentReputation * 10 * numCuredThisDay);
 
-        numCuredThisDay = 0;
+        //UPDATE MORNING POPUP
+        townsfolkText.text = numCuredThisDay.ToString();
+        numCuredThisDay = 0; //now that we've used this number, can reset it to 0 for next day
+
+        reputationText.text = currentReputation.ToString();
+
+        scoreDailyText.text = scoreAddingToday.ToString();
+
+
+        //UPDATE MAIN OVERLAY
+        //todo - when hooking up animations, we only want the text display of the score (on main overlay) to update after the fun juicy anim runs
+        score += scoreAddingToday;
+        scoreText.text = score.ToString();
+    }
+
+    public IEnumerator DisplayMorningPopup()
+    {
+        morningPopup.SetActive(true);
+        yield return new WaitForSeconds(3);
+        morningPopup.SetActive(false);
     }
 
 

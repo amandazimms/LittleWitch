@@ -10100,7 +10100,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 430009045}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.8223, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1820200925}
@@ -24439,7 +24439,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1128384040
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -46529,7 +46529,7 @@ PrefabInstance:
     - target: {fileID: 900462825001133807, guid: f6f32fb0bb0e74cef8299d0c045c8878,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1075154894997581104, guid: f6f32fb0bb0e74cef8299d0c045c8878,
         type: 3}
@@ -47036,6 +47036,42 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 4223054881350744381}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4223054881350744385 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4330901733416002675, guid: f6f32fb0bb0e74cef8299d0c045c8878,
+    type: 3}
+  m_PrefabInstance: {fileID: 4223054881350744381}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4223054881350744386 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6710599572049159695, guid: f6f32fb0bb0e74cef8299d0c045c8878,
+    type: 3}
+  m_PrefabInstance: {fileID: 4223054881350744381}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4223054881350744387 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1567904535391519451, guid: f6f32fb0bb0e74cef8299d0c045c8878,
+    type: 3}
+  m_PrefabInstance: {fileID: 4223054881350744381}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8151569344750957210
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -47230,6 +47266,21 @@ PrefabInstance:
       propertyPath: morningPopup
       value: 
       objectReference: {fileID: 888270548}
+    - target: {fileID: 8456950346195941407, guid: 35183c3900ba44a5bb42c34763b08905,
+        type: 3}
+      propertyPath: townsfolkText
+      value: 
+      objectReference: {fileID: 4223054881350744387}
+    - target: {fileID: 8456950346195941407, guid: 35183c3900ba44a5bb42c34763b08905,
+        type: 3}
+      propertyPath: reputationText
+      value: 
+      objectReference: {fileID: 4223054881350744386}
+    - target: {fileID: 8456950346195941407, guid: 35183c3900ba44a5bb42c34763b08905,
+        type: 3}
+      propertyPath: scoreDailyText
+      value: 
+      objectReference: {fileID: 4223054881350744385}
     - target: {fileID: 8474125951274693517, guid: 35183c3900ba44a5bb42c34763b08905,
         type: 3}
       propertyPath: m_LocalPosition.x
