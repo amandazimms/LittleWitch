@@ -56,13 +56,16 @@ public class AddInitialToTitle : MonoBehaviour
             GameObject initialTextGO = Instantiate(initialPrefab, new Vector3(worldPos.x, worldPos.y, 0), Quaternion.identity, gameObject.transform);
 
             RectTransform rect = initialTextGO.GetComponent<RectTransform>();
-            rect.localPosition = new Vector3(rect.localPosition.x - 130, rect.localPosition.y + 50, 0);
+            rect.localPosition = new Vector3(rect.localPosition.x, rect.localPosition.y + 50, 0);
 
             firstLetter = originalTitle.text.Substring(0, 1);
             restOfTitle = originalTitle.text.Substring(1, originalTitle.text.Length - 1);
+
+            initialTextGO.GetComponent<Text>().text = firstLetter;
+            originalTitle.text = restOfTitle;
         }
         else
-            Debug.LogError("Out of text bound");
+            Debug.LogError("Out of text bounds");
     }
 
 
