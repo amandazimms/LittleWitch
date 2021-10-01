@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 9609c0ca479484093b43aff5ba905802
+guid: 6e46ada929ab84f24979bc3c9c535deb
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -8,9 +8,9 @@ TrueTypeFontImporter:
   characterSpacing: 0
   characterPadding: 1
   includeFontData: 1
-  fontName: Juliagar
+  fontName: Gotico Suave
   fontNames:
-  - Juliagar
+  - Gotico Suave
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0

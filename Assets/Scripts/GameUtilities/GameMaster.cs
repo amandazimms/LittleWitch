@@ -29,6 +29,7 @@ public class GameMaster : MonoBehaviour
     [Header("On Morning Popup")]
     public Text townsfolkText;
     public Text reputationText, scoreDailyText;
+    string townsfolkString, reputationString, scoreDailyTextString; //on morning popu: these read something like "townsfolk cured", and are grabbed from inspector at game start.
 
     public UnityEvent OnReputationEmpty;
     public UnityEvent OnReputationFull;
@@ -42,6 +43,10 @@ public class GameMaster : MonoBehaviour
 
         dayInfo.OnDay.AddListener(BeginningOfDay);
         dayInfo.OnFinalMorning.AddListener(OnWinGame);
+
+        townsfolkString = townsfolkText.text;
+        reputationString = reputationText.text;
+        scoreDailyTextString = scoreDailyText.text;
     }
 
     public void BeginningOfDay()
@@ -57,12 +62,12 @@ public class GameMaster : MonoBehaviour
         int scoreAddingToday = (int)(currentReputation * 10 * numCuredThisDay);
 
         //UPDATE MORNING POPUP
-        townsfolkText.text = numCuredThisDay.ToString();
+        townsfolkText.text = townsfolkString + " " + numCuredThisDay.ToString();
         numCuredThisDay = 0; //now that we've used this number, can reset it to 0 for next day
 
-        reputationText.text = currentReputation.ToString();
+        reputationText.text = reputationString + " " + currentReputation.ToString();
 
-        scoreDailyText.text = scoreAddingToday.ToString();
+        scoreDailyText.text = scoreDailyTextString + " " + scoreAddingToday.ToString();
 
 
         //UPDATE MAIN OVERLAY

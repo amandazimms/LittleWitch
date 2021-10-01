@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 276b507b4eccb49bea2e6837dea7927f
+guid: 01792cdfec06f4d7fb5e3c6e1be418d4
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -8,9 +8,9 @@ TrueTypeFontImporter:
   characterSpacing: 0
   characterPadding: 1
   includeFontData: 1
-  fontName: Jasleens Jassy Font
+  fontName: Babiole
   fontNames:
-  - Jasleens Jassy Font
+  - Babiole
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0

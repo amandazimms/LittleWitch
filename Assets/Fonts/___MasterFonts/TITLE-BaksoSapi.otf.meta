@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b8a59ef0f37704d39be7dd9e8f2d2a1f
+guid: c87cb60e73ab746b2a98d16158000476
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -8,9 +8,9 @@ TrueTypeFontImporter:
   characterSpacing: 0
   characterPadding: 1
   includeFontData: 1
-  fontName: Curely
+  fontName: Bakso Sapi
   fontNames:
-  - Curely
+  - Bakso Sapi
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
