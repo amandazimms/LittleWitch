@@ -133,6 +133,14 @@ public class PeasantStats : Stats
         Vector3 playerTarget = CalculatePlayerTarget(transform, routeToOffset);
         playerMovement.MoveToObject(playerTarget, gameObject);
 
+        if (CureChecker(potionTypeToGive))
+        {   //if the cure was successful
+            ChangeReputation(.05f);
+            gameMaster.numCuredThisDay++;
+        }
+        else  //if the cure was NOT successful
+            ChangeReputation(-.1f);
+ 
         StartCoroutine(WaitWhilePlayerEnrouteToMe(false, true)); //since we froze the peasant already, it's not considered a moving target
 
         waitForRoute = true; while (waitForRoute) { yield return null; }
@@ -171,18 +179,10 @@ public class PeasantStats : Stats
         hasStartedAnimFinished = false; while (!hasStartedAnimFinished) { yield return null; }
 
         if (CureChecker(potionTypeToGive))
-        {   //if the cure was successful
-            //todo add feedback here - happy peasant, ui update
             SetCondition(Condition.Healthy);
-            ChangeReputation(.05f);
-            gameMaster.numCuredThisDay++;
-            moveAlong.StartMoveCoroutineToVillage();
-        } else
-        {   //if the cure was NOT successful
-            //todo add feedback here - mad peasant, ui update
-            ChangeReputation(-.1f);
-            moveAlong.StartMoveCoroutineToVillage();
-        }
+
+        moveAlong.StartMoveCoroutineToVillage();
+
         /* todo should really switch the potion to the other arm since they turned around at this point, then do the following...
         SortingGroup potSortGroup = currentlyCarriedPotion.GetComponent<SortingGroup>();
         if (potSortGroup)

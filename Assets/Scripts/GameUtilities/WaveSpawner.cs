@@ -10,6 +10,7 @@ public class WaveSpawner : MonoBehaviour
     public Transform spawnPoint;
 
     GameObject gameManager;
+    GameMaster gameMaster;
     DayInfo dayInfo;
 
     [Tooltip("How long to wait between spawning each peasant (on day 1)?")]
@@ -22,6 +23,7 @@ public class WaveSpawner : MonoBehaviour
     {
         gameManager = GameObject.FindWithTag("GameManager");
         dayInfo = gameManager.GetComponent<DayInfo>();
+        gameMaster = gameManager.GetComponent<GameMaster>();
 
         StartCoroutine(SpawnOrWaitForNight());
 
@@ -29,12 +31,16 @@ public class WaveSpawner : MonoBehaviour
 
     public IEnumerator SpawnOrWaitForNight()
     {
-        if (dayInfo.currentTime == DayInfo.TimeOfDay.Night)
-            StartCoroutine(PeasantSpawnCountdown());
+        if (!gameMaster.gameIsPaused)
+        {
+            if (dayInfo.currentTime == DayInfo.TimeOfDay.Night)
+                StartCoroutine(PeasantSpawnCountdown());
 
-        else {
-            yield return new WaitForSeconds(1);
-            StartCoroutine(SpawnOrWaitForNight());
+            else
+            {
+                yield return new WaitForSeconds(1);
+                StartCoroutine(SpawnOrWaitForNight());
+            }
         }
     }
 
@@ -46,7 +52,11 @@ public class WaveSpawner : MonoBehaviour
         while (count > 0)
         {
             yield return new WaitForSeconds(1);
-            count--;
+            if (!gameMaster.gameIsPaused)
+            {
+                print("peasant spawn countdown");
+                count--;
+            }
         }
         StartCoroutine(SpawnOrWaitForNight());
     }

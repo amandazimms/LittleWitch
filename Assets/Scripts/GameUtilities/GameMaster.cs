@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 public class GameMaster : MonoBehaviour
 {
+    public bool gameIsPaused;
+
     public float currentReputation;
     public float score;
     public int numCuredThisDay;
@@ -49,11 +51,17 @@ public class GameMaster : MonoBehaviour
         scoreDailyTextString = scoreDailyText.text;
     }
 
+    public void UnpauseGame()
+    {
+        gameIsPaused = false;
+    }
+
     public void BeginningOfDay()
     {
 
         UpdateScore();
-        StartCoroutine(DisplayMorningPopup());
+        if (dayInfo.nightCount != dayInfo.finalNight)
+            StartCoroutine(DisplayMorningPopup());
     }
 
     public void UpdateScore()
@@ -78,9 +86,10 @@ public class GameMaster : MonoBehaviour
 
     public IEnumerator DisplayMorningPopup()
     {
+        gameIsPaused = true;
         morningPopup.SetActive(true);
         yield return new WaitForSeconds(3);
-        morningPopup.SetActive(false);
+       // morningPopup.SetActive(false);
     }
 
 
