@@ -10,7 +10,7 @@ Little Witch is a game about a forest dwelling witch whose mission is to cure th
 ![Screenshot](LWScreenshot.png)
 
 
-## Usage
+## Release
 
 Little Witch is a work in progress, expected to release around Halloween 2022 for Mac/PC. See [Progress here](PROGRESS.md).
 

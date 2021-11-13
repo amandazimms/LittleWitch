@@ -76,27 +76,27 @@
 *Above is the MVP! Here are some more fun 'someday' thoughts*
 
 #### Tier two:
-    Brew your own: Endless ingredients, but must experiment with mixing them together to make new potions 
-    Can brew anytime, but best for gameplay to do during day as peasants come at night only.
-    As days go on, your owl* drops off new ingredients between days - this story reveal only via text pop ups. Friendly peasants could give ingredients too.
-      *the owl is just a static sprite you learn about in the popups, not interactable
-    Each morning you fill out a dialog asking the owl which ingredients to bring: she can only carry so many 
+Brew your own: Endless ingredients, but must experiment with mixing them together to make new potions 
+Can brew anytime, but best for gameplay to do during day as peasants come at night only.
+As days go on, your owl* drops off new ingredients between days - this story reveal only via text pop ups. Friendly peasants could give ingredients too.
+  *the owl is just a static sprite you learn about in the popups, not interactable
+Each morning you fill out a dialog asking the owl which ingredients to bring: she can only carry so many 
 
 #### Tier three: 
-   Grow your own: now the owl brings seeds instead. 
-   Gameplay would involve a lot of switching between garden and cauldron when peasants not there.
-   Garden space to the right of the house 
-   No variation within type of plant, and simplify (maybe recolor same sprites to upgrade to “super”___ or “toxic”____  version)
-   Force specific amount of time to do gardening - until sundown when TD aspect begins 
+Grow your own: now the owl brings seeds instead. 
+Gameplay would involve a lot of switching between garden and cauldron when peasants not there.
+Garden space to the right of the house 
+No variation within type of plant, and simplify (maybe recolor same sprites to upgrade to “super”___ or “toxic”____  version)
+Force specific amount of time to do gardening - until sundown when TD aspect begins 
 
 
 #### Tier four:
-    The owl is an actual character you interact with - she hoots when she has new seed and you click her each day to unpackage her parcels
-    Cats. Maybe different cats (colors) come by each day and you can feed them catnip to make them stick around? Once you have a cat you have to feed it to keep it around, but it will bring you goodies/seeds/etc.
-    Peasant color variance should have types of hair-skin color combos that look more realistic
-    Add a collectible element - could be things that the cat brings, some that peasants/special guests give you, or some that you find 'digging' (while gardening)
-    Achievements, especially to grow all plants and brew all potions
-    Advanced potions could require non-plant elements: crystals/ores, or animal products. To simplify, LW could have a blacksmith/milkmaid friend who brings these if ___
+The owl is an actual character you interact with - she hoots when she has new seed and you click her each day to unpackage her parcels
+Cats. Maybe different cats (colors) come by each day and you can feed them catnip to make them stick around? Once you have a cat you have to feed it to keep it around, but it will bring you goodies/seeds/etc.
+Peasant color variance should have types of hair-skin color combos that look more realistic
+Add a collectible element - could be things that the cat brings, some that peasants/special guests give you, or some that you find 'digging' (while gardening)
+Achievements, especially to grow all plants and brew all potions
+Advanced potions could require non-plant elements: crystals/ores, or animal products. To simplify, LW could have a blacksmith/milkmaid friend who brings these if ___
 
 
    
