@@ -6,9 +6,9 @@ using UnityEngine.Events;
 
 public class SuppliesCount : MonoBehaviour
 {
-    public int numPotions;
+    public int numPotions = 10;
     public Text potionsNumber;
-    public int numPlants;
+    public int numPlants = 5;
     public Text plantsNumber;
 
     public UnityEvent OnPotionCountZero;
